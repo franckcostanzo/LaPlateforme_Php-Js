@@ -1,0 +1,10 @@
+select {
+  background-color: lightpink;
+  border: 3px blueviolet dotted;
+  border-radius: 25px;  
+  width: 500px;
+  height: 500px;
+  text-align: center;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 2em;
+}

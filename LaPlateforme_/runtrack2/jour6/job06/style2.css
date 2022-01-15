@@ -1,0 +1,8 @@
+select {
+  background-color: tan;
+  border: none;
+  border-radius: 15px 50px;
+  padding: 0.5em 0.5em;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 3em;
+}
