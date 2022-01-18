@@ -1,3 +1,21 @@
+<?php
+    if (!isset($_COOKIE["nbvisites"]))
+    {
+        $cookie = 1;
+        setcookie("nbvisites", $cookie);    
+    }
+    else
+    {
+        $cookie = ++$_COOKIE["nbvisites"];
+        print_r($_COOKIE);
+        setcookie("nbvisites", $cookie);
+    }
+    if (isset($_POST["reset"]))
+    {
+        $cookie=0;
+        setcookie("nbvisites", $cookie);
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,9 +27,14 @@
 <body>
 
 <?php
-
-
+    if (isset($_COOKIE["nbvisites"]))
+    {
+        echo "<br>le nombre de connexions au site est de ".$_COOKIE["nbvisites"];
+    }
 ?>
+<form action="" method="POST">
+    <input type="submit" value="reset" name="reset">
+</form>
     
 </body>
 </html>
