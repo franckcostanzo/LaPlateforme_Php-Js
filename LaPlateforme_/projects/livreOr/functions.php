@@ -47,8 +47,8 @@ if (isset($_POST['reg_user']))
   			  VALUES('$username', '$password')";
   	mysqli_query($db, $query);
   	$_SESSION['username'] = $username;
-  	$_SESSION['success'] = "You are now logged in";
-  	header('location: index.php');
+  	$_SESSION['success'] = "You have now subscribed";
+    header('location: index.php');
   }
 }
 
@@ -74,8 +74,9 @@ if (isset($_POST['login_user']))
         $results = mysqli_query($db, $query);
         if (mysqli_num_rows($results) == 1) 
         {
-          $_SESSION['username'] = $username;
-          $_SESSION['success'] = "You are now logged in";
+            $_SESSION['username'] = $username;
+            $_SESSION['success'] = "You are now logged in";
+            header('location: index.php'); 
         }
         else 
         {
@@ -85,7 +86,7 @@ if (isset($_POST['login_user']))
 }
 
 // PASSWORD CHANGE
-if (isset($_POST['login_user'])) 
+if (isset($_POST['pwd_chg'])) 
 {
     // receive all input values from the form
   $oldPassword = mysqli_real_escape_string($db, $_POST['oldPassword']);
@@ -95,7 +96,7 @@ if (isset($_POST['login_user']))
     // form validation: ensure that the form is correctly filled ...
     // by adding (array_push()) corresponding error unto $errors array
     if (empty($oldPassword)) { array_push($errors, "Old password is required"); }
-    if (empty($password_1)) { array_push($errors, "Password is required"); }
+    if (empty($password_1)) { array_push($errors, "New password is required"); }
     if ($password_1 != $password_2) 
     {
         array_push($errors, "The two passwords do not match");
@@ -110,6 +111,7 @@ if (isset($_POST['login_user']))
         mysqli_query($db, $query);
         $_SESSION['username'] = $username;
         $_SESSION['success'] = "You have changed your password";
+        header('location: index.php');   
     }
 }
 
@@ -126,7 +128,7 @@ if (isset($_POST['reg_msg']))
     $userId = $resultId["id"];
     $message = mysqli_real_escape_string($db, $_POST['message']);
     $current_date = date("Y-m-d H:i:s");
-    $query = "INSERT INTO `commentaires` (`commentaire`, `id_utilisateur`, `date`) VALUES (NULL, '$message', '$userId', '$current_date');";
+    $query = "INSERT INTO `commentaires` (`id`,`commentaire`, `id_utilisateur`, `date`) VALUES (NULL, '$message', '$userId', '$current_date');";
     try { mysqli_query($db, $query);} catch (mysqli_sql_exception $e) { 
         echo '<pre>',var_dump($e),'</pre>';
         exit; 

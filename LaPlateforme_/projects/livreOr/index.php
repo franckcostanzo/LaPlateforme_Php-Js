@@ -1,4 +1,4 @@
-<?php include('server.php') ?>
+<?php include('functions.php') ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,9 +19,22 @@
                 <nav class="text-light d-flex">
                     <a href="index.php" class="btn btn-secondary mx-2 rounded-pill">Home</a>
                     <a href="livreOr.php" class="btn btn-secondary mx-2 rounded-pill">livre d'or</a>
-                    <a href="profil.php" class="btn btn-secondary mx-2 rounded-pill">Mon profil</a>                    
+                    <?php
+                    if (isset($_SESSION['username']))
+                    {
+                     ?>
+                    <a href="profil.php" class="btn btn-secondary mx-2 rounded-pill">Mon profil</a>
+                    <a href="deconnexion.php" class="btn btn-secondary mx-2 rounded-pill">Déconnexion</a>
+                    <?php
+                    }
+                    else
+                    {
+                    ?>                  
                     <a href="inscription.php" class="btn btn-secondary mx-2 rounded-pill">Inscription</a>
                     <a href="connexion.php" class="btn btn-secondary mx-2 rounded-pill">Connexion</a>
+                    <?php
+                    }
+                    ?>
                 </nav>
             </div>
         </nav>
@@ -29,9 +42,10 @@
 
     <main class="my-3 mx-5 px-5 d-flex flex-column align-items-center">
         <?php
-                            if (isset($_SESSION['username']))
-                            { echo "<h3>".$_SESSION['username']."</h3>"; }
-                            else { echo "tu n'est pas connecté !";}
+            if (isset($_SESSION['username']))
+            { 
+                echo '<script type="text/javascript">window.alert("Welcome '.$_SESSION['username'].'\r\n'.$_SESSION['success'].'");</script>';
+            }
         ?>
         <h2>Bienvenue sur mon premier site-projet en php !</h2>
         <p> Dans le cadre du cursus web developpeur pour la plateforme, j'ai dû réaliser ce site dont les consignes étaient :</p>

@@ -1,4 +1,4 @@
-<?php include('server.php') ?>
+<?php include('functions.php') ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,26 +26,29 @@
                 <nav class="text-light d-flex">
                     <a href="index.php" class="btn btn-secondary mx-2 rounded-pill">Home</a>
                     <a href="livreOr.php" class="btn btn-secondary mx-2 rounded-pill">livre d'or</a>
-                    <a href="profil.php" class="btn btn-secondary mx-2 rounded-pill">Mon profil</a>                    
+                    <?php
+                    if (isset($_SESSION['username']))
+                    {
+                     ?>
+                    <a href="profil.php" class="btn btn-secondary mx-2 rounded-pill">Mon profil</a>
+                    <a href="deconnexion.php" class="btn btn-secondary mx-2 rounded-pill">Déconnexion</a>
+                    <?php
+                    }
+                    else
+                    {
+                    ?>                  
                     <a href="inscription.php" class="btn btn-secondary mx-2 rounded-pill">Inscription</a>
                     <a href="connexion.php" class="btn btn-secondary mx-2 rounded-pill">Connexion</a>
+                    <?php
+                    }
+                    ?>
                 </nav>
             </div>
         </nav>
     </header>
    
     <main class="my-3 mx-5 px-5 d-flex flex-column align-items-center">
-        <?php
-            if (isset($_SESSION['username']))
-            {
-        ?>
-            <h3>Vous êtes déjà connecté !</h3>
-        <?php
-            }
-            else
-            {
-        ?>
-        <form action="connexion.php" method="POST">
+               <form action="connexion.php" method="POST">
             <?php 
              if (count($errors) > 0) { ?>
                 <div class="error">
@@ -67,9 +70,6 @@
                 Pas encore membre ? <a href="inscription.php"  class="form-group btn btn-secondary mt-2 mx-2 rounded-pill" id="registerGrp">Sign up</a>
             </p>
         </form>
-        <?php
-            }
-        ?>        
     </main>
 
     <footer>
