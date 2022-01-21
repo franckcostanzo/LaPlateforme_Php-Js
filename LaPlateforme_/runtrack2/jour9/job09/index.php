@@ -11,7 +11,7 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$sqlQuery = "SELECT COUNT(*) as nb_etudiants FROM `etudiants`;";
+$sqlQuery = "SELECT SUM(capacite) as capacite_totale FROM salles;";
 $result = $conn->query($sqlQuery);
 
 ?>

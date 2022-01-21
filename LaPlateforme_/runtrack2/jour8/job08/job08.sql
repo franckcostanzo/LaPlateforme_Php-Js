@@ -1,1 +1,1 @@
-SELECT COUNT(*) FROM `etudiants`;
+SELECT COUNT(*) as sumStudent FROM `etudiants`;
