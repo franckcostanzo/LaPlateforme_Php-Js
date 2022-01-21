@@ -84,4 +84,53 @@ if (isset($_POST['login_user']))
     }
 }
 
+// PASSWORD CHANGE
+if (isset($_POST['login_user'])) 
+{
+    // receive all input values from the form
+  $oldPassword = mysqli_real_escape_string($db, $_POST['oldPassword']);
+  $password_1 = mysqli_real_escape_string($db, $_POST['new_password_1']);
+  $password_2 = mysqli_real_escape_string($db, $_POST['new_password_2']);
+  
+    // form validation: ensure that the form is correctly filled ...
+    // by adding (array_push()) corresponding error unto $errors array
+    if (empty($oldPassword)) { array_push($errors, "Old password is required"); }
+    if (empty($password_1)) { array_push($errors, "Password is required"); }
+    if ($password_1 != $password_2) 
+    {
+        array_push($errors, "The two passwords do not match");
+    }
+
+    if (count($errors) == 0) 
+    {
+        $password = md5($password_1);   //encrypt the password before saving in the database
+        $tempUser = $_SESSION["username"];
+        $query = "INSERT INTO utilisateurs (username, password) 
+                VALUES('$tempUser', '$password')";
+        mysqli_query($db, $query);
+        $_SESSION['username'] = $username;
+        $_SESSION['success'] = "You have changed your password";
+    }
+}
+
+
+
+
+// REGISTER MESSAGE  ---- NOT WORKING ----
+if (isset($_POST['reg_msg'])) 
+{
+    // $userIdQuery = 'SELECT id FROM `utilisateurs` WHERE `username` = `$_SESSION["username"]`';
+    $userForQuery = $_SESSION["username"];
+    $query = "SELECT * FROM utilisateurs WHERE username='$userForQuery'";
+    $resultId = mysqli_fetch_assoc(mysqli_query($db, $query));
+    $userId = $resultId["id"];
+    $message = mysqli_real_escape_string($db, $_POST['message']);
+    $current_date = date("Y-m-d H:i:s");
+    $query = "INSERT INTO `commentaires` (`commentaire`, `id_utilisateur`, `date`) VALUES (NULL, '$message', '$userId', '$current_date');";
+    try { mysqli_query($db, $query);} catch (mysqli_sql_exception $e) { 
+        echo '<pre>',var_dump($e),'</pre>';
+        exit; 
+     } 
+}
+
 ?>

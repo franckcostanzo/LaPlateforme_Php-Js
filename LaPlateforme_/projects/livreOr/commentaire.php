@@ -1,3 +1,4 @@
+<?php include('server.php') ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,35 +26,26 @@
                 <nav class="text-light d-flex">
                     <a href="index.php" class="btn btn-secondary mx-2 rounded-pill">Home</a>
                     <a href="livreOr.php" class="btn btn-secondary mx-2 rounded-pill">livre d'or</a>
-                    <?php
-                        if (isset($_SESSION['username']))
-                        {
-
-                    ?>
-                        <a href="profil.php" class="btn btn-secondary mx-2 rounded-pill">Mon profil</a>
-                        <a href="connexion.php" class="btn btn-secondary mx-2 rounded-pill" onclick="<?php unset($_SESSION['username']); ?>">deconnexion</a>
-                    <?php
-                        }
-                        else
-                        {
-                    ?>                    
-                        <a href="inscription.php" class="btn btn-secondary mx-2 rounded-pill">Inscription</a>
-                        <a href="connexion.php" class="btn btn-secondary mx-2 rounded-pill">Connexion</a>
-                    <?php
-                        }
-                    ?>
+                    <a href="profil.php" class="btn btn-secondary mx-2 rounded-pill">Mon profil</a>                    
+                    <a href="inscription.php" class="btn btn-secondary mx-2 rounded-pill">Inscription</a>
+                    <a href="connexion.php" class="btn btn-secondary mx-2 rounded-pill">Connexion</a>
                 </nav>
             </div>
         </nav>
     </header>
 
     <main class="my-3 mx-5 px-5 d-flex flex-column align-items-center">
+        <?php
+            if (isset($_SESSION['username']))
+            { echo "<h3>".$_SESSION['username']."</h3>"; }
+            else { echo "tu n'est pas connecté !";}
+        ?>
         <form action="livreOr.php" method="POST">
             <div class="form-group">
                 <label for="messageGrp"> Message : </label>
                 <textarea name="message" class="form-control" id="messageGrp"></textarea>
             </div>
-            <input class="form-group btn btn-secondary mt-2 mx-2 rounded-pill" type="submit" name="submit" value="Envoyer mon message">
+            <input class="form-group btn btn-secondary mt-2 mx-2 rounded-pill" type="submit" name="reg_msg" value="Envoyer mon message">
         </form>
     </main>
 

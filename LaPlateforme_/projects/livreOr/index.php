@@ -19,23 +19,9 @@
                 <nav class="text-light d-flex">
                     <a href="index.php" class="btn btn-secondary mx-2 rounded-pill">Home</a>
                     <a href="livreOr.php" class="btn btn-secondary mx-2 rounded-pill">livre d'or</a>
-                    <?php
-                        if (isset($_SESSION['username']))
-                        {
-
-                    ?>
-                        <a href="profil.php" class="btn btn-secondary mx-2 rounded-pill">Mon profil</a>
-                        <a href="connexion.php" class="btn btn-secondary mx-2 rounded-pill" onclick="<?php unset($_SESSION['username']); ?>">deconnexion</a>
-                    <?php
-                        }
-                        else
-                        {
-                    ?>                    
-                        <a href="inscription.php" class="btn btn-secondary mx-2 rounded-pill">Inscription</a>
-                        <a href="connexion.php" class="btn btn-secondary mx-2 rounded-pill">Connexion</a>
-                    <?php
-                        }
-                    ?>
+                    <a href="profil.php" class="btn btn-secondary mx-2 rounded-pill">Mon profil</a>                    
+                    <a href="inscription.php" class="btn btn-secondary mx-2 rounded-pill">Inscription</a>
+                    <a href="connexion.php" class="btn btn-secondary mx-2 rounded-pill">Connexion</a>
                 </nav>
             </div>
         </nav>

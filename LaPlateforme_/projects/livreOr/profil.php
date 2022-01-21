@@ -24,23 +24,9 @@
                 <nav class="text-light d-flex">
                     <a href="index.php" class="btn btn-secondary mx-2 rounded-pill">Home</a>
                     <a href="livreOr.php" class="btn btn-secondary mx-2 rounded-pill">livre d'or</a>
-                    <?php
-                        if (isset($_SESSION['username']))
-                        {
-
-                    ?>
-                        <a href="profil.php" class="btn btn-secondary mx-2 rounded-pill">Mon profil</a>
-                        <a href="connexion.php" class="btn btn-secondary mx-2 rounded-pill" onclick="<?php unset($_SESSION['username']); ?>">deconnexion</a>
-                    <?php
-                        }
-                        else
-                        {
-                    ?>                    
-                        <a href="inscription.php" class="btn btn-secondary mx-2 rounded-pill">Inscription</a>
-                        <a href="connexion.php" class="btn btn-secondary mx-2 rounded-pill">Connexion</a>
-                    <?php
-                        }
-                    ?>
+                    <a href="profil.php" class="btn btn-secondary mx-2 rounded-pill">Mon profil</a>                    
+                    <a href="inscription.php" class="btn btn-secondary mx-2 rounded-pill">Inscription</a>
+                    <a href="connexion.php" class="btn btn-secondary mx-2 rounded-pill">Connexion</a>
                 </nav>
             </div>
         </nav>
@@ -50,26 +36,39 @@
         <?php
             if (isset($_SESSION['username']))
             {
+                
         ?>
-        <form action="connexion.php" method="POST">
-            <div class="form-group">
-                <label for="passwordGrp"> New password : </label>
-                <input type="text" name="password" class="form-control" id="passwordGrp">
-            </div>
-            <div class="form-group">
-                <label for="passwordConfirmGrp"> Confirm new password : </label>
-                <input type="text" name="passwordConfirm" class="form-control" id="passwordconfirmGrp">
-            </div>
-            <input class="form-group btn btn-secondary mt-2 mx-2 rounded-pill" type="submit" name="submit" value="Register">
-        </form>
+            <form action="connexion.php" method="POST">
+                <?php 
+                if (count($errors) > 0) { ?>
+                    <div class="error">
+                        <?php foreach ($errors as $error) : ?>
+                        <p><?php echo $error ?></p>
+                        <?php endforeach ?>
+                    </div>
+                <?php  } ?> 
+                <div class="form-group">
+                    <label for="oldPasswordGrp"> Old password : </label>
+                    <input type="text" name="oldPassword" class="form-control" id="oldPasswordGrp">
+                </div>
+                <div class="form-group">
+                    <label for="passwordGrp"> New password : </label>
+                    <input type="text" name="new_password_1" class="form-control" id="passwordGrp">
+                </div>
+                <div class="form-group">
+                    <label for="passwordConfirmGrp"> Confirm new password : </label>
+                    <input type="text" name="new_password_2" class="form-control" id="passwordconfirmGrp">
+                </div>
+                <input class="form-group btn btn-secondary mt-2 mx-2 rounded-pill" type="submit" name="pwd_chg" value="Change Password">
+            </form>
         <?php  }
             else
             {
         ?>
-        <h3>Vous n'êtes pas connecté !</h3>
-        <p>
-            Pas encore membre ? <a href="inscription.php"  class="form-group btn btn-secondary mt-2 mx-2 rounded-pill" id="registerGrp">Sign up</a>
-        </p>
+            <h3>Vous n'êtes pas connecté !</h3>
+            <p>
+                Pas encore membre ? <a href="inscription.php"  class="form-group btn btn-secondary mt-2 mx-2 rounded-pill" id="registerGrp">Sign up</a>
+            </p>
         <?php
             }
         ?>
