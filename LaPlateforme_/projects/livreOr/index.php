@@ -42,9 +42,10 @@
 
     <main class="my-3 mx-5 px-5 d-flex flex-column align-items-center">
         <?php
-            if (isset($_SESSION['username']))
+            if ((isset($_SESSION['username'])) && ($_SESSION['count'] == 0))
             { 
-                echo '<script type="text/javascript">window.alert("Welcome '.$_SESSION['username'].'\r\n'.$_SESSION['success'].'");</script>';
+                echo '<script type="text/javascript">window.alert("Your user name is '.$_SESSION['username'].'\r\n'.$_SESSION['success'].'");</script>';
+                $_SESSION['count']++;
             }
         ?>
         <h2>Bienvenue sur mon premier site-projet en php !</h2>
