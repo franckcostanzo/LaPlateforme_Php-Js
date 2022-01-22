@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <title>Portfolio</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                    <img src="./media/me.png" class="img-fluid" alt="My picture">
+                    <h2 class="mt-5 mx-auto">PHP</h2>
+                    <a href="./livreOr/index.php"class="btn btn-warning rounded-pill mx-auto fw-bold">Livre d'or</a>                    
+                </div>
+            </div>
+            <div class="col py-3 d-flex align-items-center justify-content-center" id="mainContent">
+                
+                <button class="border-0" onclick="audio.play();">
+                    <img src="./media/wip.jpg" alt="Work in Progress"/>
+                </button>
+                <script type="text/javascript">
+                    const audio = new Audio();
+                    audio.src = "./audio/yeepikay.mp3";
+                </script>
+            </div>
+        </div>
+    </div>
+    
+    
+</body>
+</html>

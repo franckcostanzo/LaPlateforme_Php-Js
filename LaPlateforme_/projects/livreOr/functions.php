@@ -6,7 +6,7 @@ $username = "";
 $errors = array(); 
 
 // connect to the database
-$db = mysqli_connect('localhost', 'root', '', 'livreor');
+$db = mysqli_connect('localhost', 'root', '', 'franck-costanzo_livreor');
 
 // REGISTER USER
 if (isset($_POST['reg_user'])) 
@@ -49,7 +49,7 @@ if (isset($_POST['reg_user']))
   	$_SESSION['username'] = $username;
   	$_SESSION['success'] = "You have now subscribed";
     $_SESSION['count'] = 0;
-    header('location: index.php');
+    header('location: ./index.php');
   }
 }
 
@@ -78,7 +78,7 @@ if (isset($_POST['login_user']))
             $_SESSION['username'] = $username;
             $_SESSION['success'] = "You are now logged in";
             $_SESSION['count'] = 0;
-            header('location: index.php'); 
+            header('location: ./index.php'); 
         }
         else 
         {
@@ -114,7 +114,7 @@ if (isset($_POST['pwd_chg']))
         $_SESSION['username'] = $username;
         $_SESSION['success'] = "You have changed your password";
         $_SESSION['count'] = 0;
-        header('location: index.php');   
+        header('location: ./index.php');   
     }
 }
 

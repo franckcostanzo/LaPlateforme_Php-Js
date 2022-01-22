@@ -6,9 +6,9 @@ SET time_zone = "+00:00";
 -- -----------------------------------------------------
 -- Schema livreor
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `livreor` DEFAULT CHARACTER SET utf8mb4 ;
+CREATE SCHEMA IF NOT EXISTS `franck-costanzo_livreor` DEFAULT CHARACTER SET utf8mb4 ;
 
-USE `livreor` ;
+USE `franck-costanzo_livreor` ;
 
 create table if not exists `commentaires` (
   `id` int(11) NOT NULL,
