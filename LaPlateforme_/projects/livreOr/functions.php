@@ -6,7 +6,7 @@ $username = "";
 $errors = array(); 
 
 // connect to the database
-$db = mysqli_connect('localhost', 'root', '', 'franck-costanzo_livreor');
+$db = mysqli_connect('localhost', 'franck-costanzo', 'Tisyoz84!!', 'franck-costanzo_livreor');
 
 // REGISTER USER
 if (isset($_POST['reg_user'])) 
