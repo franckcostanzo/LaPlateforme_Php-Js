@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>livre d'or</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
+    crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/a28e1208a7.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -18,34 +22,7 @@
         commentaires.
     -->
 
-    <header>
-        <nav class="navbar bg-dark w-100">
-            <!-- Navbar content -->
-            <div class="container-fluid">
-                <h1 class="text-light">Livre d'or</h1>
-                <nav class="text-light d-flex">
-                    <a href="index.php" class="btn btn-secondary mx-2 rounded-pill">Home</a>
-                    <a href="livreOr.php" class="btn btn-secondary mx-2 rounded-pill">livre d'or</a>
-                    <?php
-                    if (isset($_SESSION['username']))
-                    {
-                     ?>
-                    <a href="profil.php" class="btn btn-secondary mx-2 rounded-pill">Mon profil</a>
-                    <a href="deconnexion.php" class="btn btn-secondary mx-2 rounded-pill">Déconnexion</a>
-                    <?php
-                    }
-                    else
-                    {
-                    ?>                  
-                    <a href="inscription.php" class="btn btn-secondary mx-2 rounded-pill">Inscription</a>
-                    <a href="connexion.php" class="btn btn-secondary mx-2 rounded-pill">Connexion</a>
-                    <?php
-                    }
-                    ?>
-                </nav>
-            </div>
-        </nav>
-    </header>
+    <?php include('header.php');?>
 
     <main class="my-3 mx-5 px-5 d-flex flex-column align-items-center">
         <?php
