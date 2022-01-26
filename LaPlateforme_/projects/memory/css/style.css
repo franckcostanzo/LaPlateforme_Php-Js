@@ -20,7 +20,7 @@ img {
     height: 100%;
 }
 
-a {
+a, a:hover {
     color: inherit;
     text-decoration: inherit; /* no underline */
 }
@@ -48,7 +48,13 @@ a {
 /* ------------- */
 /*     HEADER    */
 /* ------------- */
+    #gamePlan {
+        height: 80vh;
+    }
 
+    #ladder {
+        height: 80vh;
+    }
 
 
     /* ------------- */
@@ -56,8 +62,6 @@ a {
     /* ------------- */
 
     @media screen and (max-width: 750px){
-        
-
 
     }
 
