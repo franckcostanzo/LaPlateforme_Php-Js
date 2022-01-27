@@ -15,14 +15,7 @@
 </head>
 <body>
 
-    <!--
-        Le formulaire doit contenir l’ensemble des champs présents dans la table
-        “utilisateurs” (sauf “id”) ainsi qu’une confirmation de mot de passe. Dès
-        qu’un utilisateur remplit ce formulaire, les données sont insérées dans la
-        base de données et l’utilisateur est redirigé vers la page de connexion.
-    -->
-
-    <?php include('header.php');?>
+    <?php include('./elements/header.php');?>
 
     <main class="my-3 mx-5 px-5 d-flex flex-column align-items-center">
         <form action="connexion.php" method="POST">
@@ -52,9 +45,6 @@
             </p>
         </form>
     </main>
-
-
-    <?php include('./elements/footer.php');?>
 
 </body>
 </html>

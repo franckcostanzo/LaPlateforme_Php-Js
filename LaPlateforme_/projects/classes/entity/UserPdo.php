@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
-include ('./service/Dbconnect.php');
+include ('./service/DbconnectPDO.php');
 
-class User 
+class UserPdo 
 {
     private int $id;
     public string $login;
     public string $email;
     public string $firstname;
-    public string $lastname;    
+    public string $lastname;  
 
     public function __construct() 
     {
@@ -23,22 +23,26 @@ class User
                             string $email, string $firstname, 
                             string $lastname)
     { 
-        $db = Dbconnect::dbconnect();
-        $queryReturn = "SELECT `login`,`email` FROM `users` 
-                        WHERE `login` LIKE '$login' AND `email` LIKE '$email'";
-        $resultReturn = mysqli_query($db, $queryReturn);
-
+        $pdo = DbconnectPDO::dbconnect();
+        $selectQuery = $pdo->prepare("SELECT `login`,`email` FROM `users` 
+                        WHERE `login` LIKE ? AND `email` LIKE ?");
+        $selectQuery->execute(array(
+            $login,
+            $email
+        ));
 
         //check if user exists
-        if ( mysqli_num_rows($resultReturn) == 0)
+        if ( $selectQuery->rowCount() == 0)
         {            
-            $query = "INSERT INTO `users` (`id`, `login`, `password`, `email`, `firstname`, `lastname`)" 
-                    ."VALUES (NULL, '$login', '$password', '$email', '$firstname', '$lastname');";
-            mysqli_query($db, $query);
-            $selectQuery = "SELECT * FROM `users` WHERE `login` LIKE '$login' AND `password` LIKE '$password'";
-            $resultQuery = mysqli_query($db, $selectQuery);
-            $result = mysqli_fetch_all($resultQuery);
-            var_dump($result);
+            $ins = $pdo->prepare("INSERT INTO `users` (`id`, `login`, `password`, `email`, `firstname`, `lastname`)" 
+            ."VALUES (NULL, ?, ?, ?, ?, ?);");
+            $ins->execute(array(
+                $login,                
+                md5($password),
+                $email,
+                $firstname,
+                $lastname
+            ));
             echo "<br> <p>$login a été créé! <p>";
         } 
         else 
@@ -53,15 +57,15 @@ class User
     connecté.*/
     public function connect(string $login, string $password)
     {
-        
-        $db = Dbconnect::dbconnect();
+        $pdo = DbconnectPDO::dbconnect();
+        $selectQuery = $pdo->prepare("SELECT * FROM `users` WHERE `login` LIKE ? AND `password` LIKE ?;");
+        $selectQuery->execute(array(
+            $login,
+            md5($password)
+        ));
 
-        $selectQuery = "SELECT * FROM `users` WHERE `login` LIKE '$login' AND `password` LIKE '$password'";
-        $results = mysqli_query($db, $selectQuery);
-        
-        /* Tableau numérique */
-        $row = mysqli_fetch_array($results, MYSQLI_ASSOC);
-        if (mysqli_num_rows($results) == 1) 
+        $row = $selectQuery->fetch();
+        if ($selectQuery->rowCount() == 1) 
         {
             $this->id = intval($row["id"]);
             $this->login = $row["login"];
@@ -97,12 +101,15 @@ class User
     /*Supprime ET déconnecte un user */
     public function delete()
     {        
-        $db = Dbconnect::dbconnect();
+        $pdo = DbconnectPDO::dbconnect();
         session_start();
         if ( $_SESSION["connected"] == true)
         {
-            $deleteQuery ="DELETE FROM `users` WHERE `login` LIKE '$this->login' AND `email` LIKE '$this->email'";
-            mysqli_query($db, $deleteQuery);
+            $deleteQuery = $pdo->prepare("DELETE FROM `users` WHERE `login` LIKE ? AND `email` LIKE ?");
+            $deleteQuery->execute( array(
+                $this->login,
+                $this->email
+            ));
             echo "L'utilisateur $this->login avec l'email $this->email a été supprimé !";
             unset($this->id);
             unset($this->login);
@@ -123,20 +130,30 @@ class User
                             string $email, string $firstname, 
                             string $lastname)
     {       
-        $db = Dbconnect::dbconnect();
+        $pdo = DbconnectPDO::dbconnect();
 
-        $queryReturn = "SELECT `login`,`email` FROM `users` 
-                        WHERE `login` LIKE '$login' AND `email` LIKE '$email'";
-        $resultReturn = mysqli_query($db, $queryReturn);
+        $queryReturn = $pdo->prepare("SELECT `login`,`email` FROM `users` 
+                        WHERE `login` LIKE ? AND `email` LIKE ?");
+        $queryReturn->execute(array(
+            $login,
+            $email
+        ));
 
         //check if user exists
-        if ( mysqli_num_rows($resultReturn) == 1)
+        if ( $queryReturn->rowCount() == 1)
         {            
-            $updateQuery =  "UPDATE `users` 
-                        SET `login` = '$login', `password` =$password, 
-                                `email` =$email , `firstname` =$firstname, `lastname`=$lastname                        
-                        WHERE `login` LIKE '$login' AND `password` LIKE '$password'";
-            mysqli_query($db, $updateQuery);
+            $updateQuery =  $pdo->prepare("UPDATE `users` 
+                        SET `login` = ?, `password` = ?, `email` = ?, `firstname` = ?, `lastname`= ?                    
+                        WHERE `login` LIKE ? AND `password` LIKE ?");
+            $updateQuery->execute(array(
+                $login,
+                md5($password),
+                $email,
+                $firstname,
+                $lastname,
+                $login,
+                md5($password)
+            ));
         }
     }
 

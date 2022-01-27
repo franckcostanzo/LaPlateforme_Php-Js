@@ -1,4 +1,4 @@
-<?php include('./entity/user.php');?>
+<?php include('./entity/userPdo.php');?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +16,7 @@
     <?php 
         // $pedro = new User();
         // $pedro->register('pedro','drope','pedro@mexico.me','pedro', 'elsancho');
-        $momo = new User();
+        $momo = new UserPdo();
         $momo->register('momo','zogzog','momo@zogzog.io','momo','elmacho');
         $momo->connect('momo','zogzog');
         echo "<h2>".(($momo->isConnected() == 1) ? "true" : "false")."</h2><br>";

@@ -3,6 +3,9 @@
         <!-- Navbar content -->
         <div class="container-fluid">
             <h1 class="text-light"><a href="index.php">Memory</a></h1>
+            <a href="https://github.com/franckcostanzo/cours-php/tree/main/LaPlateforme_/projects/memory">
+                <i class="fab fa-github-square h1 text-light"></i>
+            </a> 
             <nav class="text-dark d-flex" id="undisp">
                 <a href="index.php" class="btn btn-light mx-2 rounded-pill">Home</a>
                 <?php

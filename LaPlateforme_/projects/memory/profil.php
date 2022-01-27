@@ -15,12 +15,7 @@
 </head>
 <body>
     
-    <!--
-        Cette page possède un formulaire permettant à l’utilisateur de modifier son
-        login et son mot de passe.
-    --> 
-
-    <?php include('header.php');?>
+    <?php include('./elements/header.php');?>
 
     <main class="my-3 mx-5 px-5 d-flex flex-column align-items-center">
         <?php
@@ -63,8 +58,6 @@
             }
         ?>
     </main>
-
-    <?php include('./elements/footer.php');?>
 
     
 

@@ -15,14 +15,7 @@
 </head>
 <body>
     
-    <!--
-        Le formulaire doit avoir deux inputs : “login” et “password”. Lorsque le
-        formulaire est validé, s’il existe un utilisateur en bdd correspondant à ces
-        informations, alors l’utilisateur devient connecté et une (ou plusieurs)
-        variables de session sont créées.
-    -->
-
-    <?php include('header.php');?>
+    <?php include('./elements/header.php');?>
    
     <main class="my-3 mx-5 px-5 d-flex flex-column align-items-center">
                <form action="connexion.php" method="POST">
@@ -47,11 +40,7 @@
                 Pas encore membre ? <a href="inscription.php"  class="form-group btn btn-secondary mt-2 mx-2 rounded-pill" id="registerGrp">Sign up</a>
             </p>
         </form>
-    </main>
-
-    <?php include('./elements/footer.php');?>
-
-    
+    </main>    
     
 </body>
 </html>

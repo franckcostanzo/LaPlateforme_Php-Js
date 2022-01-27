@@ -17,7 +17,7 @@
     
     <?php include('./elements/header.php');?>   
 
-    <main class="container-fluid mt-5">
+    <main class="container-fluid">
         <div class="row">
             <div class="col-md-12 ">
                 <div class="row">
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-</main>
+    </main>
 
     <?php include('./elements/footer.php');?>
 
