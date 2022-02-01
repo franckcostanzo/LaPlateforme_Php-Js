@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <header>
     <nav class="navbar bg-success rounded-pill m-2">
         <!-- Navbar content -->
@@ -43,7 +47,7 @@
                         {
                         ?>                  
                         <li><a href="inscription.php">Inscription</a></li>
-                        <li><a href="connexion.php">Connexion</a></li>
+                        <li><a href="deconnexion.php">Connexion</a></li>
                         <?php
                         }
                     ?>                

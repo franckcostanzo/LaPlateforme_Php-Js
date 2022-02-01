@@ -9,7 +9,7 @@ class UserPdo
     public string $firstname;
     public string $lastname;  
 
-    public function __construct() 
+    public function __construct()
     {
         /*Est appelé automatiquement lors de l’initialisation de
         votre objet. Initialise les différents attributs de votre

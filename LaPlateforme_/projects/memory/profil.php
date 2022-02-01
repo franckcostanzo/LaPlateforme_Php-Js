@@ -1,11 +1,11 @@
-<?php include('./service/functions.php') ?>
+<?php include('./service/controller.php') ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>livre d'or</title>
+    <title>Memory</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
@@ -28,7 +28,7 @@
                 if (count($errors) > 0) { ?>
                     <div class="error">
                         <?php foreach ($errors as $error) : ?>
-                        <p><?php echo $error ?></p>
+                        <p><?php echo "<h5 style='color:red;'>".$error."</h5>" ?></p>
                         <?php endforeach ?>
                     </div>
                 <?php  } ?> 
@@ -44,7 +44,7 @@
                     <label for="passwordConfirmGrp"> Confirm new password : </label>
                     <input type="password" name="new_password_2" class="form-control" id="passwordconfirmGrp">
                 </div>
-                <input class="form-group btn btn-secondary mt-2 mx-2 rounded-pill" type="submit" name="pwd_chg" value="Change Password">
+                <input class="form-group btn btn-success mt-2 mx-2 rounded-pill" type="submit" name="pwd_chg" value="Change Password">
             </form>
         <?php  }
             else
@@ -52,7 +52,7 @@
         ?>
             <h3>Vous n'êtes pas connecté !</h3>
             <p>
-                Pas encore membre ? <a href="inscription.php"  class="form-group btn btn-secondary mt-2 mx-2 rounded-pill" id="registerGrp">Sign up</a>
+                Pas encore membre ? <a href="inscription.php"  class="form-group btn btn-success mt-2 mx-2 rounded-pill" id="registerGrp">Sign up</a>
             </p>
         <?php
             }
