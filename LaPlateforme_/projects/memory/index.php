@@ -19,7 +19,10 @@ include('./entity/Plateau.php');
 </head>
 <body>    
     
-    <?php include('./elements/header.php'); 
+    <?php include('./elements/header.php');
+        if (!isset($_SESSION['count'])) {$_SESSION['count'] = 0;}
+        $istore = [];
+        $firstCard;
         if (!(isset($_SESSION['plateau']))) 
         {
             echo "YOUPI<br>";
@@ -33,10 +36,28 @@ include('./entity/Plateau.php');
         };
         for ($i=0;$i<12;$i++){
             if (isset($_POST['card'.$i]))
-            {
+            {                
+                $_SESSION['count']++;
+                array_push($istore, $i);
                 $_SESSION['card'.$i]->setisDiscovered(true);
+                $_SESSION['temp'.$_SESSION['count']] = $_SESSION['card'.$i];
             }
         }
+        print_r($istore); echo "<br>";
+        echo $_SESSION['count']; echo "<br>";
+        if ($_SESSION['count'] == 2)
+        {
+            var_dump($_SESSION['temp'.$_SESSION['count']]); echo "<br>";
+            var_dump($_SESSION['temp'.($_SESSION['count']-1)]); 
+            if ($_SESSION['temp'.$_SESSION['count']] !== $_SESSION['temp'.($_SESSION['count']-1)])
+            {
+                $_SESSION['card'.$istore[0]]->setisDiscovered(false);
+                $_SESSION['card'.$istore[1]]->setisDiscovered(false);
+                $istore = array();
+            }
+            $_SESSION['count'] = 0;
+        }
+
     ?>   
 
     <main class="container-fluid">
