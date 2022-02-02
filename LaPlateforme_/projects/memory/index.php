@@ -25,15 +25,14 @@ include('./entity/Plateau.php');
         if (!isset($_SESSION['gameScore'])) {$_SESSION['gameScore'] = 100;}
         if (!isset($_SESSION['successCount'])) {$_SESSION['successCount'] = 0;}
 
+        //checking if game board is set, if not set it
         if (!(isset($_SESSION['plateau']))) 
         {
-            // echo "YOUPI<br>";
             $_SESSION['plateau'] = new Plateau;
             $_SESSION['array'] = ($_SESSION['plateau']->getMyArray());
-            for($i=0;$i<12;$i++){
+            for($i=0;$i<12;$i++)
+            {
                 $_SESSION['card'.$i] = $_SESSION['array'][$i];
-                // var_dump($_SESSION['card'.$i]);
-                // echo "<br>";
             }    
         }
 
@@ -42,29 +41,9 @@ include('./entity/Plateau.php');
             {                
                 $_SESSION['count']++;
                 array_push($_SESSION['istore'], $i);
-                $_SESSION['card'.$i]->setisDiscovered(true);
+                $_SESSION['card'.$i]->setisDiscovered(true);                
                 $_SESSION['temp'.$_SESSION['count']] = $_SESSION['card'.$i];
             }
-        }
-        
-        // print_r($_SESSION['istore']); echo "<br>";
-        // echo $_SESSION['count']; echo "<br>";
-        if ($_SESSION['count'] == 2)
-        {
-            // var_dump($_SESSION['temp'.$_SESSION['count']]); echo "<br>";
-            // var_dump($_SESSION['temp'.($_SESSION['count']-1)]); 
-            if ($_SESSION['temp'.$_SESSION['count']]->getimgSrc() !== $_SESSION['temp'.($_SESSION['count']-1)]->getimgSrc())
-            {
-                $_SESSION['card'.$_SESSION['istore'][0]]->setisDiscovered(false);                
-                $_SESSION['card'.$_SESSION['istore'][1]]->setisDiscovered(false);
-                $_SESSION['gameScore'] -= 5;              
-            }
-            else
-            {
-                $_SESSION['successCount']++;
-            } 
-            $_SESSION['istore'] = array();
-            $_SESSION['count'] = 0;
         }
 
 ?>
@@ -73,43 +52,46 @@ include('./entity/Plateau.php');
     <main class="container-fluid">
         <div class="row">
 
-            <?php if ($_SESSION['gameScore'] > 0 &&  $_SESSION['successCount'] == 6) : ?>
-                <h2 class="text-center"> Vous avez gagné avec un score de <?= $_SESSION['gameScore'] ?></h2>
-                <?php include('./service/registerScore.php');?>
-            <?php elseif  ($_SESSION['gameScore'] > 0) : ?>
-                <h2 class="text-center"> Score Actuel : <?= $_SESSION['gameScore'] ?></h2>
-            <?php elseif  ($_SESSION['gameScore'] <= 0):?>
-                <h2 class="text-center"> Vous avez perdu ! (mais vous pouvez continuer à jouer)</h2>
-            <?php endif ?>
+            
 
             <div class="col-md-12 ">
                 <div class="row">
+                    <!-- Left part of the screen -->
                     <div class="col-md-9 p-2" id="gamePlan">
                         
-                        <?php 
-                        $i = 0;
+                        <?php $i = 0;
                         for ($y=0;$y<3;$y++) :?>
-                        <form class="d-flex justify-content-center" method="POST">
-                            <?php while(true) :?>                            
-                                <button type="submit" name=<?="card".$i?> value=true class="card" >
-                                    <?php if( isset($_SESSION['card'.$i]) && $_SESSION['card'.$i]->getisDiscovered() ) : ?>
-                                        <img src=<?= $_SESSION['card'.$i]->getimgSrc()?> alt=<?='card'.$i?> id=<?='card'.$i?>>
-                                    <?php else : ?>
-                                        <img src="./media/back.png" alt=<?='card'.$i?> id=<?='card'.$i?>>
-                                    <?php endif; ?>
-                                </button>
-                            <?php 
-                            $i++;
-                            if ($i % 4 == 0) {break;}
-                            endwhile; ?>
-                        </form>
+
+                            <form class="d-flex justify-content-center" method="POST">
+
+                                <?php while(true) :?>  
+
+                                    <button type="submit" name=<?="card".$i?> value=true class="card">
+                                        <?php if( isset($_SESSION['card'.$i]) && $_SESSION['card'.$i]->getisDiscovered() ) : ?>
+                                            <img src=<?= $_SESSION['card'.$i]->getimgSrc()?> alt=<?='card'.$i?> id=<?='card'.$i?>>
+                                        <?php else : ?>
+                                            <img src="./media/back.png" alt=<?='card'.$i?> id=<?='card'.$i?>>
+                                        <?php endif; ?>
+                                    </button>
+
+                                <?php $i++;
+                                if ($i % 4 == 0) {break;}
+                                endwhile; ?>
+
+                            </form>
+
                         <?php endfor; ?>
                         
 
                     </div>
 
+                    <?php include('./service/gameChanger.php'); ?>
+
+                    <!-- right part of the screen -->
                     <div class="col-md-3 text-center p-2" id="ladder">
 
+                        <a href="./service/restart.php" class="form-group btn btn-success mt-2 mx-2 rounded-pill">Restart</a>
+                        <br><br><br>
                         <h2>Meilleures Scores :</h1>
                         <?php
                             $pdo = DbconnectPDO::dbconnect();
@@ -124,16 +106,24 @@ include('./entity/Plateau.php');
                                 echo $place.'. '.$rows[$i]["username"].' - score : '.$rows[$i]["score"]."<br>";
                                 }
                             }
-                        ?>
-                        <a href="./service/restart.php" class="form-group btn btn-success mt-2 mx-2 rounded-pill">Restart</a>
+                        ?>                       
 
                     </div>
 
                 </div>
             </div>
+
+            <?php if ($_SESSION['gameScore'] > 0 &&  $_SESSION['successCount'] == 6) : ?>
+                <h2 class="text-center"> Vous avez gagné avec un score de <?= $_SESSION['gameScore'] ?></h2>
+                <?php include('./service/registerScore.php');?>
+            <?php elseif  ($_SESSION['gameScore'] > 0) : ?>
+                <h2 class="text-center"> Score Actuel : <?= $_SESSION['gameScore'] ?></h2>
+            <?php elseif  ($_SESSION['gameScore'] <= 0):?>
+                <h2 class="text-center"> Vous avez perdu ! (mais vous pouvez continuer à jouer)</h2>
+            <?php endif ?>
+
         </div>
     </main>
-
     
     <?php include('./elements/footer.php');?>    
 
