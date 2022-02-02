@@ -67,11 +67,15 @@ a {
 /* -------------- */
 /*      MAIN      */
 /* -------------- */
-#resa {
-    width: 13vh;
-    height: 7.5vh;
-    background-color: cadetblue;
-}
+    #resa {
+        width: 13vh;
+        height: 7.5vh;
+        background-color: cadetblue;
+    }
+
+    #resaForm{
+        width: 60vh;
+    }
 
     /* ------------- */
     /*     MOBILE   */

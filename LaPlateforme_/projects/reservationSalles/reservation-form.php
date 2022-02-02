@@ -19,7 +19,51 @@
     <?php include('./elements/header.php');?>
         
 
-    <main></main>  
+    <main class="container-fluid">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-12 border border-dark rounded-3" id="resaForm">
+
+                <h2 class="mt-2">Formulaire de réservation</h2>
+
+                <p>Utilisateur : <?= $_SESSION['username']?></p>
+                <form action="" method="POST">
+
+                    <div class="form-group">
+                        <label for="titreGrp"> Titre : </label>
+                        <input type="text" name="titre" class="form-control" id="titreGrp">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="selectGrp"> Heure de la réservation : </label>
+                        <br>
+                        <select name="pets" id="selectGrp">
+                            <option value="">--choisissez votre créneau--</option>
+                            <?php for($i=0;$i<11;$i++) : ?>
+                                <option value="<?= 8+$i?>h"><?= 8+$i?>h</option>
+                            <?php endfor; ?>
+                        </select>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="dateGrp"> Date : </label>
+                        <input type="date" name="date" class="form-control" id="dateGrp"></textarea>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="messageGrp"> Description : </label>
+                        <textarea name="description" class="form-control" id="messageGrp"></textarea>
+                    </div>
+                    <br>
+
+                    <input class="form-group btn btn-danger my-2 mx-2 rounded-pill" type="submit" type="submit" value="Soumettre ma réservation">
+                </form>
+
+            </div>
+        </div>
+    </main>    
 
     
 </body>

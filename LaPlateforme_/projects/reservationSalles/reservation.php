@@ -19,7 +19,14 @@
     <?php include('./elements/header.php');?>
         
 
-    <main></main>  
+    <main class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 border border-dark" id="resaForm">
+                <h2>
+
+            </div>
+        </div>
+    </main>  
 
     
 </body>
