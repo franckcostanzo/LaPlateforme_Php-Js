@@ -32,7 +32,7 @@ if (isset($_POST['reg_user']))
                   WHERE `username` LIKE ? AND `password` LIKE ?");
   $selectQuery->execute(array(
       $username,
-      md5($password)
+      md5($password_1)
   ));
 
   //check if user exists
