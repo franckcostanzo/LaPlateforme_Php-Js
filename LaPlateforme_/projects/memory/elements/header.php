@@ -12,22 +12,13 @@
             </a> 
             <nav class="text-dark d-flex" id="undisp">
                 <a href="index.php" class="btn btn-light mx-2 rounded-pill">Home</a>
-                <?php
-                if (isset($_SESSION['username']))
-                {
-                    ?>
-                <a href="profil.php" class="btn btn-light mx-2 rounded-pill">Mon profil</a>
-                <a href="deconnexion.php" class="btn btn-light mx-2 rounded-pill">Déconnexion</a>
-                <?php
-                }
-                else
-                {
-                ?>                  
-                <a href="inscription.php" class="btn btn-light mx-2 rounded-pill">Inscription</a>
-                <a href="connexion.php" class="btn btn-light mx-2 rounded-pill">Connexion</a>
-                <?php
-                }
-                ?>
+                <?php if (isset($_SESSION['username'])) : ?>
+                    <a href="profil.php" class="btn btn-light mx-2 rounded-pill">Mon profil</a>
+                    <a href="deconnexion.php" class="btn btn-light mx-2 rounded-pill">Déconnexion</a>
+                <?php else : ?>                   
+                    <a href="inscription.php" class="btn btn-light mx-2 rounded-pill">Inscription</a>
+                    <a href="connexion.php" class="btn btn-light mx-2 rounded-pill">Connexion</a>
+                <?php endif ?>
             </nav>
             
             <div class="btn-group dropstart" id="disp">
@@ -35,22 +26,13 @@
             </button>
                 <ul class="dropdown-menu text-center">
                     <li><a href="index.php">Home</a></li>
-                    <?php
-                        if (isset($_SESSION['username']))
-                        {
-                        ?>
-                        <li><a href="profil.php">Mon profil</a></li>
-                        <li><a href="deconnexion.php">Déconnexion</a></li>
-                        <?php
-                        }
-                        else
-                        {
-                        ?>                  
-                        <li><a href="inscription.php">Inscription</a></li>
-                        <li><a href="deconnexion.php">Connexion</a></li>
-                        <?php
-                        }
-                    ?>                
+                    <?php if (isset($_SESSION['username'])) : ?>
+                        <li><a href="./profil.php">Mon profil</a></li>
+                        <li><a href="./service/deconnexion.php">Déconnexion</a></li>
+                        <?php else : ?>                  
+                        <li><a href="./inscription.php">Inscription</a></li>
+                        <li><a href="./connexion.php">Connexion</a></li>
+                    <?php endif ?>                
                 </ul>
             </div>
         </div>

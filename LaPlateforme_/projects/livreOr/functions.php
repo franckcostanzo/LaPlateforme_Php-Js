@@ -9,7 +9,9 @@ $errors = array();
 $db = mysqli_connect('localhost', 'franck-costanzo', 'Tisyoz84!!', 'franck-costanzo_livreor');
 // $db = mysqli_connect('localhost', 'root', '', 'livreor');
 
-// REGISTER USER
+/*-------------------------------
+          REGISTER USER 
+--------------------------------*/
 if (isset($_POST['reg_user'])) 
 {
   // receive all input values from the form

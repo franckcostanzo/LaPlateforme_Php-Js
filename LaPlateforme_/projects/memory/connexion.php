@@ -18,31 +18,36 @@
     <?php include('./elements/header.php');?>
    
     <main class="my-3 mx-5 px-5 d-flex flex-column align-items-center">
-               <form action="connexion.php" method="POST">
-            <?php 
-             if (count($errors) > 0) { ?>
+        <form action="connexion.php" method="POST">
+
+            <?php if (count($errors) > 0) : ?>
                 <div class="error">
                     <?php foreach ($errors as $error) : ?>
                     <p><?php echo "<h5 style='color:red;'>".$error."</h5>" ?></p>
                     <?php endforeach ?>
                 </div>
-            <?php  } ?> 
+            <?php  endif; ?>
+
             <div class="form-group">
                 <label for="loginGrp"> Login : </label>
                 <input type="text" name="username" class="form-control" id="loginGrp">
             </div>
+
             <div class="form-group">
                 <label for="emailGrp"> email : </label>
                 <input type="text" name="email" class="form-control" id="emailGrp">
             </div>
+
             <div class="form-group">
                 <label for="passwordGrp"> Password : </label>
                 <input type="password" name="password" class="form-control" id="passwordGrp">
             </div>
+
             <input class="form-group btn btn-success mt-2 mx-2 rounded-pill" type="submit" name="login_user" value="Connexion">
             <p>
-                Pas encore membre ? <a href="inscription.php"  class="form-group btn btn-success mt-2 mx-2 rounded-pill" id="registerGrp">Sign up</a>
+                Pas encore membre ? <a href="inscription.php" class="form-group btn btn-success mt-2 mx-2 rounded-pill" id="registerGrp">Sign up</a>
             </p>
+            
         </form>
     </main>    
     
