@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory</title>
+    <title>Reservation de Salle</title>
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./css/style.css">    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
@@ -20,13 +20,22 @@
         
 
     <main class="container-fluid">
-        <div class="row d-flex justify-content-center">
+        <div class="row d-flex justify-content-center">            
+
             <div class="col-md-12 border border-dark rounded-3" id="resaForm">
+
+                <?php if (count($errors) > 0) : ?>
+                    <div class="error">
+                        <?php foreach ($errors as $error) : ?>
+                        <p><?php echo "<h6 style='color:red;'>".$error."</h6>" ?></p>
+                        <?php endforeach ?>
+                    </div>
+                <?php  endif; ?>
 
                 <h2 class="mt-2">Formulaire de réservation</h2>
 
                 <p>Utilisateur : <?= $_SESSION['username']?></p>
-                <form action="" method="POST">
+                <form action="reservation-form.php" method="POST">
 
                     <div class="form-group">
                         <label for="titreGrp"> Titre : </label>
@@ -35,12 +44,23 @@
                     <br>
 
                     <div class="form-group">
-                        <label for="selectGrp"> Heure de la réservation : </label>
+                        <label for="selectGrp"> Heure de début : </label>
                         <br>
-                        <select name="pets" id="selectGrp">
-                            <option value="">--choisissez votre créneau--</option>
+                        <select name="heureDebut" id="selectGrp">
+                            <option value="">--Votre choix--</option>
                             <?php for($i=0;$i<11;$i++) : ?>
-                                <option value="<?= 8+$i?>h"><?= 8+$i?>h</option>
+                                <option value="<?= 8+$i?>"><?= 8+$i?>h</option>
+                            <?php endfor; ?>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="selectGrp2"> Heure de fin : </label>
+                        <br>
+                        <select name="heureFin" id="selectGrp2">
+                            <option value="">--Votre choix--</option>
+                            <?php for($i=1;$i<12;$i++) : ?>
+                                <option value="<?= 8+$i?>"><?= 8+$i?>h</option>
                             <?php endfor; ?>
                         </select>
                     </div>
@@ -58,7 +78,8 @@
                     </div>
                     <br>
 
-                    <input class="form-group btn btn-danger my-2 mx-2 rounded-pill" type="submit" type="submit" value="Soumettre ma réservation">
+                    <input class="form-group btn btn-danger my-2 mx-2 rounded-pill" 
+                    type="submit" name="resaForm" value="Soumettre ma réservation">
                 </form>
 
             </div>
