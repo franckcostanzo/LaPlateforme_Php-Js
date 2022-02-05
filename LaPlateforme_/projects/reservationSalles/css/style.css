@@ -20,7 +20,7 @@ img {
     height: 100%;
 }
 
-a {
+a, a:hover {
     color: inherit;
     text-decoration: inherit; /* no underline */
 }
@@ -68,9 +68,12 @@ a {
 /*      MAIN      */
 /* -------------- */
     #resa {
-        width: 16vh;
+        
         height: 7.5vh;
-        background-color: cadetblue;
+    }
+    .resa2 {
+        width : 20vh;
+        height: 7.5vh;
     }
 
     #resaForm{

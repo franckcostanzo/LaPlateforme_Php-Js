@@ -19,10 +19,17 @@
     <?php include('./elements/header.php');?>
         
 
-    <main class="container-fluid">
+    <main class="container-fluid d-flex justify-content-center align-items-center">
         <div class="row">
-            <div class="col-md-12 border border-dark" id="resaForm">
-                <h2>
+            <div class="col-md-12 border border-dark m-5 p-5" id="resaForm">
+                <h2> Titre : <?= $_GET['titre']?></h2>
+                <p>Réservation faites par : <?=$_GET['username']?></p>
+                <label for="description">Description :</label>
+                <textarea id="description" rows="5" cols="30"> <?= $_GET['description']?></textarea>
+                <p>Debut : <?= $_GET['debut']?></p>
+                <p>Fin : <?= $_GET['fin']?></p>
+                </textarea>
+
 
             </div>
         </div>

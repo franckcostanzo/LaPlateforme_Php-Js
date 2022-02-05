@@ -34,7 +34,7 @@
 
                 <h2 class="mt-2">Formulaire de réservation</h2>
 
-                <p>Utilisateur : <?= $_SESSION['username']?></p>
+                <p>Utilisateur : <?= $_SESSION['username'] ?></p>
                 <form action="reservation-form.php" method="POST">
 
                     <div class="form-group">
@@ -46,6 +46,7 @@
                     <div class="form-group">
                         <label for="selectGrp"> Heure de début : </label>
                         <br>
+                        <!-- altérer le formulaire pour afficher le $_GET['debut'] -->
                         <select name="heureDebut" id="selectGrp">
                             <option value="">--Votre choix--</option>
                             <?php for($i=0;$i<11;$i++) : ?>

@@ -1,4 +1,4 @@
-<?php include('./service/controller.php'); ?>
+<?php include('./service/controller.php'); include ('./entity/Reservation.php'); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,19 +17,19 @@
 <body>    
     
     <?php include('./elements/header.php');?>
-        
+      
+    <?php
+        $today = date("l d M Y");
+        $tempDay = new DateTime($today);
+        $dayNumber =  $tempDay->format("w");
+        $dayPlus = array();
+    ?>
 
-    <main>
-        <?php if (count($errors) > 0) : ?>
-                <div class="error">
-                    <?php foreach ($errors as $error) : ?>
-                    <p><?php echo "<h5 style='color:red;'>".$error."</h5>" ?></p>
-                    <?php endforeach ?>
-                </div>
-            <?php  endif; ?>
-        <?php if (isset($_POST['resaForm'])){
-            echo "YOUPIIIII<br>";
-            var_dump($_POST); echo "<br>";}?>
+    <main class="my-3 mx-5 px-5 d-flex flex-column align-items-center">
+        <h2>Bienvenue sur mon site-projet Reservation de salle </h2>
+        <p> Il a été créé dans le cadre du cursus web developpeur<br>
+        pour la <a href="https://laplateforme.io/"><h3>LaPlateforme_</h3></p>
+        <br>
     </main>  
 
     

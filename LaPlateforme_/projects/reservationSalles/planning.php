@@ -1,4 +1,5 @@
-<?php include('./service/controller.php'); ?>
+<?php include('./service/controller.php'); 
+include ('./entity/Reservation.php'); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,60 +23,76 @@
         $today = date("l d M Y");
         $tempDay = new DateTime($today);
         $dayNumber =  $tempDay->format("w");
-        echo $today."<br>".$dayNumber;
-        $dayPlus1 = date("l d M Y", mktime(0, 0, 0, date("m"),date("d")+1,date("Y")));
-        $dayPlus2 = date("l d M Y", mktime(0, 0, 0, date("m"),date("d")+2,date("Y")));
-        $dayPlus3 = date("l d M Y", mktime(0, 0, 0, date("m"),date("d")+3,date("Y")));
-        $dayPlus4 = date("l d M Y", mktime(0, 0, 0, date("m"),date("d")+4,date("Y")));
+        $dayPlus = array();
     ?>
         
 
     
-    <main class="container-fluid d-flex justify-content-center">
-        <div class="row">
+    <main class="container-fluid d-flex justify-content-center align-items-center">
 
-            <div class="col-md-2">
-                <div class="row">
-                    <div class="border d-flex justify-content-center align-items-center" id="resa"><p>/</p></div>
-                </div>
-            <?php for ($i=0;$i<11;$i++) : ?>
-                <div class="row">
-                    <div class="border d-flex justify-content-center align-items-center" id="resa">
-                        <?= 8+$i?>h - <?= 9+$i?>h
-                    </div>
-                </div>
-            <?php endfor; ?>
-            </div>
+    <table>
+            <tr>
+                <th class="text-center resa2">/</th>
+                <th class="text-center resa2">
+                    <?= $today ?>
+                </th>
+                <?php for($i=1;$i<7;$i++) : ?> 
+                    <th class="text-center resa2">
+                        <?= date("l d M Y", mktime(0, 0, 0, date("m"),date("d")+$i,date("Y"))); ?>
+                    </th>
+                <?php endfor; ?>
+            </tr>
+                <?php for($z=0;$z<11;$z++) :?>
+                    <tr>      
+                        <td class="text-center resa2"><?= 8+$z?> - <?= 8+$z+1?>h</td>
+                        <?php for($y=0;$y<7;$y++) : ?>
+                            <?php
+                                //creating a variable to check the number of the day
+                                $loopDay = date("l d M Y", mktime(0, 0, 0, date("m"),date("d")+$y,date("Y"))); 
+                                $tempLoopDay = new DateTime($loopDay);
+                                $loopDayNumber = $tempLoopDay->format("w");
 
-            <div class="col-md-10">
-                <div class="row">
-                <div class="col-md-2 text-center border d-flex justify-content-center align-items-center" id="resa">
-                        <?= $today ?>
-                        </div>
-                        <div class="col-md-2 text-center border d-flex justify-content-center align-items-center" id="resa">
-                        <?= $dayPlus1 ?>
-                        </div>
-                        <div class="col-md-2 text-center border d-flex justify-content-center align-items-center" id="resa">
-                        <?= $dayPlus2 ?>
-                        </div>
-                        <div class="col-md-2 text-center border d-flex justify-content-center align-items-center" id="resa">
-                        <?= $dayPlus3 ?>
-                        </div>
-                        <div class="col-md-2 text-center border d-flex justify-content-center align-items-center" id="resa">
-                        <?= $dayPlus4 ?>
-                        </div>
-                </div>
-            <?php $i = 0; for ($y=0;$y<11;$y++) :?>
-                <form class="row" method="POST">
-                <?php while(true) :?>
-                    <button class="col-md-2 d-flex justify-content-center align-items-center" type="submit" id="resa">
-                    </button>
-                <?php $i++; if ($i % 5 == 0) {break;} ?>
-                <?php endwhile; ?>
-                </form>
-            <?php endfor; ?>
-            </div>
-    
+                                //getting reservation of the day
+                                $selectQuery = $pdo->prepare("SELECT `id`,`titre`,`debut`,`fin`,`description`,`id_utilisateur` FROM `reservations` WHERE `debut` LIKE ?");
+                                $queryDay = date("Y-m-d", mktime(0, 0, 0, date("m"),date("d")+$y,date("Y")))."%";
+                                $selectQuery->execute(array($queryDay));
+                                $reservations = $selectQuery->fetchAll(PDO::FETCH_CLASS, 'reservation');
+                                if ($selectQuery->rowCount() >= 1) 
+                                {
+                                    foreach($reservations as $resa)
+                                    {
+                                    $tempId = $resa->getIdUtilisateur();
+                                    $idQuery = $pdo->prepare("SELECT `username` FROM `utilisateurs` 
+                                                                    WHERE `id` LIKE ?");
+                                    $idQuery->execute(array($tempId));
+                                    $tempUsername = $idQuery->fetch();                                    
+                                    $tempDate = $resa->getDebut();
+                                    $tempDate = new DateTime($tempDate); 
+                                    $tempHeureDebut = $tempDate->format("H");
+                                    $tempDate = $resa->getFin();
+                                    $tempDate = new DateTime($tempDate);
+                                    $tempHeureFin = $tempDate->format("H");
+                                    }
+                                }
+                            ?>                                                                
+                                
+                            <?php //checking loop day to see if it's saturday or sunday  
+                                if ( $loopDayNumber == 6 || $loopDayNumber == 0 ) : ?>
+                                    <td class="bg-danger resa2"></td>
+                            <?php elseif ($selectQuery->rowCount() >= 1 && (($tempHeureDebut <= 8+$z) && (8+$z <= $tempHeureFin))) : ?>
+                                <td class="text-center resa2">
+                                    <a href="reservation.php?username=<?= $tempUsername['username'] ?>&titre=<?=$resa->getTitre()?>&debut=<?=$resa->getDebut();?>&fin=<?=$resa->getFin();?>&description=<?=$resa->getDescription()?>">
+                                            <div class="border text-center bg-success resa2"><?= $tempUsername['username'] ?><br><?=$resa->getTitre()?></div>
+                                    </a>
+                                </td>
+                                                           
+                            <?php else :?>
+                                <td class="text-center border resa2"></td>
+                            <?php endif; ?>
+                        <?php endfor; ?>                        
+                    </tr>
+                <?php endfor; ?>                                     
+        </table> 
 
 
     </main>  
