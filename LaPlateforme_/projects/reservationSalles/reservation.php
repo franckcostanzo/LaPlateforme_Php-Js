@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory</title>
+    <title>Reservation choisie</title>
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./css/style.css">    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
@@ -23,9 +23,11 @@
         <div class="row">
             <div class="col-md-12 border border-dark m-5 p-5" id="resaForm">
                 <h2> Titre : <?= $_GET['titre']?></h2>
-                <p>Réservation faites par : <?=$_GET['username']?></p>
+                <br>
+                <p>Réservation faites par : <b><?=$_GET['username']?></b></p>
                 <label for="description">Description :</label>
-                <textarea id="description" rows="5" cols="30"> <?= $_GET['description']?></textarea>
+                <div class="border border-dark p-2" id="description" rows="5" cols="30"><?= $_GET['description']?></div>
+                <br>
                 <p>Debut : <?= $_GET['debut']?></p>
                 <p>Fin : <?= $_GET['fin']?></p>
                 </textarea>

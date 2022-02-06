@@ -7,7 +7,7 @@ class Reservation
     private $debut;
     private $fin;
     private $description;
-    private $id_utilisateur;
+    private $username;
 
     public function __set($name, $value)
     {
@@ -39,9 +39,9 @@ class Reservation
         return $this->description;
     }
 
-    public function getIdUtilisateur()
+    public function getUsername()
     {
-        return $this->id_utilisateur;
+        return $this->username;
     }
 
 }

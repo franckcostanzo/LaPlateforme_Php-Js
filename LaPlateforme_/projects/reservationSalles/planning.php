@@ -18,25 +18,13 @@ include ('./entity/Reservation.php'); ?>
 <body>
        
     <?php include('./elements/header.php');?>
-
-    <?php
-        $today = date("l d M Y");
-        $tempDay = new DateTime($today);
-        $dayNumber =  $tempDay->format("w");
-        $dayPlus = array();
-    ?>
         
-
-    
     <main class="container-fluid d-flex justify-content-center align-items-center">
 
-    <table>
+        <table>
             <tr>
-                <th class="text-center resa2">/</th>
-                <th class="text-center resa2">
-                    <?= $today ?>
-                </th>
-                <?php for($i=1;$i<7;$i++) : ?> 
+                <th class="text-center resa2"></th>
+                <?php for($i=0;$i<7;$i++) : ?> 
                     <th class="text-center resa2">
                         <?= date("l d M Y", mktime(0, 0, 0, date("m"),date("d")+$i,date("Y"))); ?>
                     </th>
@@ -45,51 +33,53 @@ include ('./entity/Reservation.php'); ?>
                 <?php for($z=0;$z<11;$z++) :?>
                     <tr>      
                         <td class="text-center resa2"><?= 8+$z?> - <?= 8+$z+1?>h</td>
-                        <?php for($y=0;$y<7;$y++) : ?>
-                            <?php
-                                //creating a variable to check the number of the day
-                                $loopDay = date("l d M Y", mktime(0, 0, 0, date("m"),date("d")+$y,date("Y"))); 
-                                $tempLoopDay = new DateTime($loopDay);
-                                $loopDayNumber = $tempLoopDay->format("w");
+                        <?php   for($y=0;$y<7;$y++) : 
+                                    //creating a variable to check the number of the day
+                                    $loopDay = date("l d M Y", mktime(0, 0, 0, date("m"),date("d")+$y,date("Y"))); 
+                                    $tempLoopDay = new DateTime($loopDay);
+                                    $loopDayNumber = $tempLoopDay->format("w");
 
-                                //getting reservation of the day
-                                $selectQuery = $pdo->prepare("SELECT `id`,`titre`,`debut`,`fin`,`description`,`id_utilisateur` FROM `reservations` WHERE `debut` LIKE ?");
-                                $queryDay = date("Y-m-d", mktime(0, 0, 0, date("m"),date("d")+$y,date("Y")))."%";
-                                $selectQuery->execute(array($queryDay));
-                                $reservations = $selectQuery->fetchAll(PDO::FETCH_CLASS, 'reservation');
-                                if ($selectQuery->rowCount() >= 1) 
-                                {
-                                    foreach($reservations as $resa)
-                                    {
-                                    $tempId = $resa->getIdUtilisateur();
-                                    $idQuery = $pdo->prepare("SELECT `username` FROM `utilisateurs` 
-                                                                    WHERE `id` LIKE ?");
-                                    $idQuery->execute(array($tempId));
-                                    $tempUsername = $idQuery->fetch();                                    
-                                    $tempDate = $resa->getDebut();
-                                    $tempDate = new DateTime($tempDate); 
-                                    $tempHeureDebut = $tempDate->format("H");
-                                    $tempDate = $resa->getFin();
-                                    $tempDate = new DateTime($tempDate);
-                                    $tempHeureFin = $tempDate->format("H");
-                                    }
-                                }
+                                    //getting reservation of the day
+                                    $selectQuery = $pdo->prepare("SELECT reservations.id,`titre`,`debut`,`fin`,`description`,`username` 
+                                                                    FROM `reservations` INNER JOIN `utilisateurs` 
+                                                                    ON reservations.id_utilisateur = utilisateurs.id
+                                                                    WHERE `debut` LIKE ?");
+                                    $queryDay = date("Y-m-d", mktime(0, 0, 0, date("m"),date("d")+$y,date("Y")))."%";
+                                    $selectQuery->execute(array($queryDay));
+                                    $reservations = $selectQuery->fetchAll(PDO::FETCH_CLASS, 'reservation');
+                                    $rowCount = $selectQuery->rowCount();
                             ?>                                                                
                                 
                             <?php //checking loop day to see if it's saturday or sunday  
-                                if ( $loopDayNumber == 6 || $loopDayNumber == 0 ) : ?>
+                                    if ( $loopDayNumber == 6 || $loopDayNumber == 0 ) : ?>
                                     <td class="bg-danger resa2"></td>
-                            <?php elseif ($selectQuery->rowCount() >= 1 && (($tempHeureDebut <= 8+$z) && (8+$z <= $tempHeureFin))) : ?>
-                                <td class="text-center resa2">
-                                    <a href="reservation.php?username=<?= $tempUsername['username'] ?>&titre=<?=$resa->getTitre()?>&debut=<?=$resa->getDebut();?>&fin=<?=$resa->getFin();?>&description=<?=$resa->getDescription()?>">
-                                            <div class="border text-center bg-success resa2"><?= $tempUsername['username'] ?><br><?=$resa->getTitre()?></div>
-                                    </a>
-                                </td>
-                                                           
-                            <?php else :?>
+                            <?php   elseif ($rowCount >= 1) :
+                                        $counter = 0;
+                                        for($x=0;$x<$rowCount;$x++) :
+                                            $_SESSION['resa'.$x] = $reservations[$x];
+                                            $tempId = $_SESSION['resa'.$x]->getUsername();                                   
+                                            $tempDate = $_SESSION['resa'.$x]->getDebut();
+                                            $tempDate = new DateTime($tempDate); 
+                                            $tempHeureDebut = $tempDate->format("H");
+                                            $tempDate = $_SESSION['resa'.$x]->getFin();
+                                            $tempDate = new DateTime($tempDate);
+                                            $tempHeureFin = $tempDate->format("H");
+                                            if (($tempHeureDebut <= 8+$z) && (8+$z <= $tempHeureFin)) : $counter++ ?>
+                                                <td class="text-center resa2">
+                                                    <a href="reservation.php?username=<?= $_SESSION['resa'.$x]->getUsername(); ?>
+                                                            &titre=<?=$_SESSION['resa'.$x]->getTitre()?>&debut=<?=$_SESSION['resa'.$x]->getDebut();?>
+                                                            &fin=<?=$_SESSION['resa'.$x]->getFin();?>&description=<?=$_SESSION['resa'.$x]->getDescription()?>">
+                                                            <div class="border text-center bg-success resa2"><?= $_SESSION['resa'.$x]->getUsername(); ?><br><?=$_SESSION['resa'.$x]->getTitre()?></div>
+                                                    </a>
+                                                </td>
+                                            <?php endif; endfor;
+                                        if ($counter == 0) :?>                                      
+                                            <td class="text-center border resa2"></td>
+                            <?php       endif; 
+                                    else :?>
                                 <td class="text-center border resa2"></td>
-                            <?php endif; ?>
-                        <?php endfor; ?>                        
+                            <?php   endif;  
+                                endfor; ?>                        
                     </tr>
                 <?php endfor; ?>                                     
         </table> 
