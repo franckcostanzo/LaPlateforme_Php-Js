@@ -30,6 +30,8 @@
         <p> Il a été créé dans le cadre du cursus web developpeur<br>
         pour la <a href="https://laplateforme.io/"><h3>LaPlateforme_</h3></p>
         <br>
+
+    
     </main>  
 
     

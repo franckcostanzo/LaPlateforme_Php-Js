@@ -46,27 +46,30 @@ include ('./entity/Reservation.php'); ?>
                                                                     WHERE `debut` LIKE ?");
                                     $queryDay = date("Y-m-d", mktime(0, 0, 0, date("m"),date("d")+$y,date("Y")))."%";
                                     $selectQuery->execute(array($queryDay));
+
+                                    //converting every items to reservation class
                                     $reservations = $selectQuery->fetchAll(PDO::FETCH_CLASS, 'reservation');
+
+                                    //counting how many items received from query
                                     $rowCount = $selectQuery->rowCount();
                             ?>                                                                
                                 
-                            <?php //checking loop day to see if it's saturday or sunday  
+                            <?php   //checking loop day to see if it's saturday or sunday  
                                     if ( $loopDayNumber == 6 || $loopDayNumber == 0 ) : ?>
                                     <td class="bg-danger resa2"></td>
-                            <?php   elseif ($rowCount >= 1) :
+
+                            <?php   //if there was one or more items
+                                    elseif ($rowCount >= 1) :
                                         $counter = 0;
                                         for($x=0;$x<$rowCount;$x++) :
                                             $_SESSION['resa'.$x] = $reservations[$x];
-                                            $tempId = $_SESSION['resa'.$x]->getUsername();                                   
-                                            $tempDate = $_SESSION['resa'.$x]->getDebut();
-                                            $tempDate = new DateTime($tempDate); 
+                                            $tempDate = new DateTime($_SESSION['resa'.$x]->getDebut()); 
                                             $tempHeureDebut = $tempDate->format("H");
-                                            $tempDate = $_SESSION['resa'.$x]->getFin();
-                                            $tempDate = new DateTime($tempDate);
+                                            $tempDate = new DateTime($_SESSION['resa'.$x]->getFin());
                                             $tempHeureFin = $tempDate->format("H");
-                                            if (($tempHeureDebut <= 8+$z) && (8+$z <= $tempHeureFin)) : $counter++ ?>
+                                            if (($tempHeureDebut <= 8+$z) && (8+$z < $tempHeureFin)) : $counter++ ?>
                                                 <td class="text-center resa2">
-                                                    <a href="reservation.php?username=<?= $_SESSION['resa'.$x]->getUsername(); ?>
+                                                    <a href="./reservation.php?username=<?= $_SESSION['resa'.$x]->getUsername(); ?>
                                                             &titre=<?=$_SESSION['resa'.$x]->getTitre()?>&debut=<?=$_SESSION['resa'.$x]->getDebut();?>
                                                             &fin=<?=$_SESSION['resa'.$x]->getFin();?>&description=<?=$_SESSION['resa'.$x]->getDescription()?>">
                                                             <div class="border text-center bg-success resa2"><?= $_SESSION['resa'.$x]->getUsername(); ?><br><?=$_SESSION['resa'.$x]->getTitre()?></div>

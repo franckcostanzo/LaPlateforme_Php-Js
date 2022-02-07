@@ -1,6 +1,24 @@
 <?php
 include ('DbconnectPDO.php');
 
+class ReservationDate
+{    
+  private $debut;
+  private $fin;
+
+  public function __set($name, $value) {}
+
+  public function getDebut()
+  {
+      return $this->debut;
+  }
+
+  public function getFin()
+  {
+      return $this->fin;
+  }
+}
+
 // initializing variables
 $username = "";
 $errors = array(); 
@@ -176,19 +194,47 @@ if (isset($_POST['resaForm']))
 
   // first check the database to make sure 
   // a reservation does not already exist with the same date and hour
-  $selectQuery = $pdo->prepare("SELECT `debut`,`fin` FROM `reservations` 
-                  WHERE `debut` LIKE ? OR `fin` LIKE ?");
-  $selectQuery->execute(array(
-      $dateDebut,
-      $dateFin
+  $checkQuery = $pdo->prepare("SELECT `debut`,`fin` FROM `reservations` 
+                  WHERE `debut` LIKE ? AND `fin` LIKE ?");
+  $checkQuery->execute(array(
+    $_POST['date']."%",
+    $_POST['date']."%"
   ));
 
-  //check if user exists
-  if ( $selectQuery->rowCount() == 1)
+  //converting every items to reservation class
+  $reservations = $checkQuery->fetchAll(PDO::FETCH_CLASS, 'reservationDate');
+  
+  //counting how many items received from query
+  $rowCount = $checkQuery->rowCount();
+
+  echo $rowCount."<br>";
+ 
+  
+  if ( $rowCount >= 1)
   {
-    array_push($errors, "Le créneau est déjà réservé");
+      
+
+      for($x=0;$x<$rowCount;$x++)
+      {
+        $_SESSION['resa'.$x] = $reservations[$x];
+        $tempDate = new DateTime($_SESSION['resa'.$x]->getDebut()); 
+        $tempHeureDebut = $tempDate->format("H");
+        $tempDate = new DateTime($_SESSION['resa'.$x]->getFin());
+        $tempHeureFin = $tempDate->format("H");
+
+        if ((($tempHeureDebut <= $_POST['heureDebut']) && ($_POST['heureDebut'] < $tempHeureFin)) 
+            || (($tempHeureDebut < $_POST['heureFin']) && ($_POST['heureFin'] <= $tempHeureFin)))
+        {
+          array_push($errors, 
+          "Une réservation est déjà en cours pour ce créneau, veuillez vérifier le planning");
+        }
+
+      }
+        
+
   }
 
+  
   // Finally, register user if there are no errors in the form
   if (count($errors) == 0) 
   {

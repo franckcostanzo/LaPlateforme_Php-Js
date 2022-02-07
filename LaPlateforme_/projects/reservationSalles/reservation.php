@@ -31,8 +31,6 @@
                 <p>Debut : <?= $_GET['debut']?></p>
                 <p>Fin : <?= $_GET['fin']?></p>
                 </textarea>
-
-
             </div>
         </div>
     </main>  
