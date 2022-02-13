@@ -20,28 +20,14 @@ img {
     height: 100%;
 }
 
-#disp {
+.disp {
     display:none;
 }
 
-/* .buttonGen {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    color:black;
-    border: none;    
-    text-decoration: none;
-    background-color: rgb(253, 229, 9);
-    border-radius: 20%/50%;
-    height: 2em;
-    padding: 0.5em;
-    margin: 0.5em;
+#topNavBar {
+    display:none!important;
 }
 
-.buttonGen:hover {
-    background-color: rgb(163, 150, 34);
-} */
 
     /* ------------- */
     /*     MOBILE   */
@@ -49,11 +35,11 @@ img {
 
     @media screen and (max-width: 750px){
         
-        /* .buttonGen {
-            display : none;
-        } */
+        #topNavBar {
+            display:flex!important;
+        }
         
-        #undisp {
+        .undisp {
             display:none;
         }
 
@@ -71,7 +57,7 @@ img {
 
 .sidebar {
     height: 100%;
-    width: 15vh;
+    width: 25vh;
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -82,7 +68,7 @@ img {
     text-align: center;
 }
 
-#photo {
+.photo {
     width : 90%;
     margin: 0.5em;
 }
@@ -99,8 +85,18 @@ h2 {
     @media screen and (max-width: 750px){
         
         .sidebar {
-            width: 20vh;
-        }     
+            display : none;
+        }
+        
+        .navbar {
+            height: 15vh;
+            background-color: rgb(2, 45, 59)!important;
+        }
+
+        .photo {
+            width: 20vw;
+            margin: 0.5em;
+        }
 
     }
 
@@ -121,12 +117,17 @@ h2 {
     justify-content: center!important;
     align-items: center!important;
 }
+
 content {
     display: flex!important;
     justify-content: center!important;
     align-items: center!important;
     width: 100%;
     height:100%;
+}
+
+.logoBoxes {
+    display: none!important;
 }
 
     /* ------------- */
@@ -136,7 +137,18 @@ content {
     @media screen and (max-width: 750px){   
         
         #mainContent {
-            margin-left: 20%;
+            margin-left: 0;
+            align-items: start!important;
+        }
+
+        content {
+            display: none!important;
+        }
+
+        .logoBoxes {
+            display:block!important;
+            background-color: rgb(2, 45, 59)!important;
+            border: 2px white;
         }
 
     }

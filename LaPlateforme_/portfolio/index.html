@@ -12,20 +12,28 @@
 <body>
     <header>
         <nav class="sidebar">
-            <div id="photo">
+            <div class="photo">
                 <img src="./media/me.png" alt="My picture">
             </div>
             <h2>PHP</h2>
-            <a href="./livreOr/index.php" class="btn btn-warning rounded-pill mx-auto fw-bold" id="undisp">Livre d'or</a>
-            <a href="./livreOr/index.php" class="link-warning fw-bold text-decoration-none small" id="disp">Livre d'or</a>
-            <a href="./memory/index.php" class="btn btn-warning rounded-pill mx-auto fw-bold" id="undisp">Memory</a>
-            <a href="./memory/index.php" class="link-warning fw-bold text-decoration-none small" id="disp">Memory</a>
-            <a href="./reservationSalles/index.php" class="btn btn-warning rounded-pill mx-auto fw-bold" id="undisp">Resa de Salle</a>
-            <a href="./reservationSalles/index.php" class="link-warning fw-bold text-decoration-none small" id="disp">Resa de Salle</a>
+            <a href="./livreOr/index.php" class="btn btn-warning rounded-pill mx-auto fw-bold undisp">Livre d'or</a>
+            
+            <a href="./memory/index.php" class="btn btn-warning rounded-pill mx-auto fw-bold undisp">Memory</a>
+            
+            <a href="./reservationSalles/index.php" class="btn btn-warning rounded-pill mx-auto fw-bold undisp">Resa de Salle</a>
+            
             <br>
             <h2>Word <br>Press</h2>
-            <a href="./mycms/" class="btn btn-warning rounded-pill mx-auto fw-bold" id="undisp">CMS</a>
-            <a href="./mycms/" class="link-warning fw-bold text-decoration-none small" id="disp">CMS</a>
+            <a href="./mycms/" class="btn btn-warning rounded-pill mx-auto fw-bold undisp">CMS</a>
+        </nav>
+                    
+        <nav class="navbar d-flex flex-row justify-content-start" id="topNavBar">
+            <div class="photo">
+                <img src="./media/me.png" alt="My picture">
+            </div>
+            <div>
+                <h1 class="mx-5 text-light fw-bold">Junior Dev</h1>                
+            </div>
         </nav>
     </header>
     
@@ -34,7 +42,22 @@
             <button onclick="audio.play();">
                 <img src="./media/wip2.png" alt="Work in Progress" id="wip"/>
             </button>
-        </content>        
+        </content>
+        <div class="mx-4 my-2 p-4 rounded-pill border border-light logoBoxes">
+            <img src="./media/PHP-logo.svg">
+            <ul class="text-center m-0 p-0">
+                <li><a href="./livreOr/index.php" class="link-warning fw-bold text-decoration-none small">Livre d'or</a></li>
+                <li><a href="./memory/index.php" class="link-warning fw-bold text-decoration-none small">Memory</a></li>
+                <li><a href="./reservationSalles/index.php" class="link-warning fw-bold text-decoration-none small">Resa de Salle</a></li>
+            </ul>
+        </div>
+        <div class="mx-4 my-2 p-4 rounded-pill border border-light logoBoxes">
+            <img src="./media/wordpress.png">
+            <ul class="text-center m-0 p-0">
+                <li>
+                    <a href="./mycms/" class="link-warning fw-bold text-decoration-none small">CMS</a></li>
+            </ul>
+        </div>
     </main>
 
     <script type="text/javascript">
