@@ -1,54 +1,52 @@
 <?php 
 
-class User {
+require_once 'Model/Model.php';
 
-    public static function register($firstname, $lastname,
+class User extends Model {
+
+    public function register($firstname, $lastname,
                                         $password, $email, $phone, 
                                         $birthday, $address, $zipCode)
-    {
-        //connect to the DB        
-        $pdo = DbconnectPDO::dbconnect();
+    { 
+        $params = array($firstname, $lastname, md5($password), $email, $phone, $birthday, $address, $zipCode);
 
-        /*SQL statement to be executed : 
-        ? are values that are not directly inputed to avoid SQL injections
-        NULL is for id that is auto incremented
-        0 is for boolean value of has_fidelity_bonus table field, default has not
-        */
-        $sql = 'INSERT INTO utilisateurs (client_id, firstname, lastname, 
-                                            password, email, phone, has_fidelity_bonus,
-                                            birthday, address, zip_code ) 
-                VALUES (NULL, :firstname, :lastname, 
-                                :password, :email, :phone, 0,
-                                :birthday, :address, :zip_code)';
+        $sql = 'INSERT INTO clients (client_id, firstname, lastname,' 
+                                            .'password, email, phone, has_fidelity_bonus,'
+                                            .'birthday, address, zip_code )' 
+                .'VALUES (NULL, ?, ?,' 
+                .'?, ?, ?, 0,'
+                .'?, ?, ?)';
 
-        $ins = $pdo->prepare($sql);
-        $ins->bindParam(':firstname', $firstname, PDO::PARAM_STR);
-        $ins->bindParam(':lastname', $lastname, PDO::PARAM_STR);
-        $ins->bindParam(':password', $password, PDO::PARAM_STR);
-        $ins->bindParam(':email', $email, PDO::PARAM_STR);
-        $ins->bindParam(':phone', $phone, PDO::PARAM_STR);
-        $ins->bindParam(':birthday', $birthday, PDO::PARAM_STR);
-        $ins->bindParam(':address', $address, PDO::PARAM_STR);
-        $ins->bindParam(':zip_code', $zipCode, PDO::PARAM_STR);
-        
-        return $ins->execute();
+        $register = $this->executerRequete($sql, $params);
+
+        return $register;
     }
 
 
-    public static function checkExists($firstname, $lastname, $email)
-    {
-        //connect to the DB        
-        $pdo = DbconnectPDO::dbconnect();
+    public function checkExists($firstname, $lastname, $email, $password)
+    {        
+        $params = array($firstname, $lastname, $email, md5($password));
 
-        // first check the database to make sure 
-        // a user does not already exist with the same username and/or email
-        $checkQuery = $pdo->prepare("SELECT `firstname`, `lastname`,`email` FROM `utilisateurs` 
-                        WHERE `firstname` LIKE ? AND `lastname` LIKE ? AND `email` LIKE ?");
-        $checkQuery->bindParam(':firstname', $firstname, PDO::PARAM_STR);
-        $checkQuery->bindParam(':lastname', $lastname, PDO::PARAM_STR);
-        $checkQuery->bindParam(':email', $email, PDO::PARAM_STR);
+        $sql = "SELECT `firstname`, `lastname`,`email` FROM `clients` 
+                        WHERE `firstname` LIKE ? AND `lastname` LIKE ? AND `email` LIKE ? AND `password` LIKE ?";
+                        
+        $checkQuery = $this->executerRequete($sql,$params);
 
-        return $checkQuery->rowCount();
+        return $checkQuery;
     }
+
+    public function passwordChange($password, $firstname, $lastname, $newPassword)
+    {
+        $params = array(md5($newPassword), $firstname, $lastname, md5($password));
+
+        $sql = "UPDATE `clients` 
+        SET `password` = ?                    
+        WHERE `firstname` LIKE ? AND `lastname` LIKE ? AND `password` LIKE ?";
+
+        $updateQuery = $this->executerRequete($sql, $params);
+
+        return $updateQuery;
+    }
+
 
 }

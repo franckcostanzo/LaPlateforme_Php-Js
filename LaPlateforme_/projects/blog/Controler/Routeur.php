@@ -14,6 +14,15 @@
         $this->ctrlBillet = new ControleurBillet();
     }
 
+    // Recherche un paramètre dans un tableau
+    private function getParametre($tableau, $nom) 
+    {
+        if (isset($tableau[$nom])) {
+        return $tableau[$nom];
+        }
+        else
+        throw new Exception("Paramètre '$nom' absent");
+    }
 
     // Traite une requête entrante
     public function routerRequete() 
@@ -24,19 +33,21 @@
             {
                 if ($_GET['action'] == 'billet') 
                 {
-                    if (isset($_GET['id'])) 
+                    $idBillet = intval($this->getParametre($_GET, 'id'));
+                    if ($idBillet != 0) 
                     {
-                        $idBillet = intval($_GET['id']);
-                        if ($idBillet != 0) 
-                        {
-                            $this->ctrlBillet->billet($idBillet);
-                        }
-                        else
-                            throw new Exception("Identifiant de billet non valide");
+                        $this->ctrlBillet->billet($idBillet);
                     }
                     else
-                        throw new Exception("Identifiant de billet non défini");
-                    }
+                        throw new Exception("Identifiant de billet non valide");
+                }
+                else if ($_GET['action'] == 'commenter') 
+                {
+                    $auteur = $this->getParametre($_POST, 'auteur');
+                    $contenu = $this->getParametre($_POST, 'contenu');
+                    $idBillet = $this->getParametre($_POST, 'id');
+                    $this->ctrlBillet->commenter($auteur, $contenu, $idBillet);
+                }
                 else
                     throw new Exception("Action non valide");
             }

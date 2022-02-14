@@ -1,7 +1,16 @@
 <?php
 
+require_once('Model/User.php');
+require_once('View/View.php');
+
 class UserController 
 {  
+    private $user;
+
+    public function __construct() 
+    {
+        $this->user = new User();
+    }
 
     public function actionRegister()
     {
@@ -33,15 +42,15 @@ class UserController
             if (empty($zipCode)) { array_push($errors, "ZipCode is required"); }
 
             //check if user exists
-            $checkExists = User::checkExists($firstname, $lastname, $email);        
+            $checkExists = $this->user->checkExists($firstname, $lastname, $email);        
             if ( $checkExists >= 1) {array_push($errors, "Username already exists"); }
 
             // Finally, register user if there are no errors in the form
             if (count($errors) == 0) 
             {
-                $registerUser = User::register($firstname, $lastname,
-                                                md5($password_1), $email, $phone, 
-                                                $birthday, $address, $zipCode);
+                $this->user->register($firstname, $lastname,
+                                        md5($password_1), $email, $phone, 
+                                        $birthday, $address, $zipCode);
             }
 
         }

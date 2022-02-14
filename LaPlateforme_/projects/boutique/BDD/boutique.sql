@@ -12,10 +12,11 @@ client_id INT AUTO_INCREMENT NOT NULL,
 firstname VARCHAR(255),
 lastname VARCHAR(255),
 email VARCHAR(255),
+password VARCHAR(255),
 phone VARCHAR(10),
 has_fidelity_bonus BOOLEAN,
 birthday DATE,
-adress VARCHAR(255),
+address VARCHAR(255),
 zip_code INT(5),
 PRIMARY KEY (client_id)
 ) ENGINE=InnoDB;
