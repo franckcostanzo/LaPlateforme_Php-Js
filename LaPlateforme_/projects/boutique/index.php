@@ -1,5 +1,6 @@
-<?php include('elements/header.php');?>
-        
+<?php $title = 'Boutique' ?>
+
+<?php include('elements/header.php');?>        
 
 <main></main>
     

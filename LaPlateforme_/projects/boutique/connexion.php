@@ -1,4 +1,7 @@
+<?php $title = 'connexion' ?>
+
 <?php include('./elements/header.php');?>
+
    
 <main class="my-3 mx-5 px-5 d-flex flex-column align-items-center">
     <form action="connexion.php" method="POST">
@@ -15,7 +18,7 @@
             <label for="firstnameGrp"> Firstname : </label>
             <input type="text" name="firstname" class="form-control" id="firstnameGrp">
         </div>
-        
+
         <div class="form-group">
             <label for="lastnameGrp"> Lastname : </label>
             <input type="text" name="lastname" class="form-control" id="lastnameGrp">
