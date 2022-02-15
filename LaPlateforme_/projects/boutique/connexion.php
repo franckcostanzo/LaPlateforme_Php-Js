@@ -1,7 +1,6 @@
 <?php $title = 'connexion' ?>
 
-<?php include('./elements/header.php');?>
-
+<?php include('./Elements/header.php');?>
    
 <main class="my-3 mx-5 px-5 d-flex flex-column align-items-center">
     <form action="connexion.php" method="POST">

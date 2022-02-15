@@ -49,18 +49,34 @@ a, a:hover {
 /*     HEADER    */
 /* ------------- */
 
+header{
+    display:flex;
+}
 
+#logo{
+    width: 10vw;
+}
+nav{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    width:90vw;
+    height:15vh;
+    background-color: #ffe330;
+}
 
     /* ------------- */
     /*     MOBILE   */
     /* ------------- */
 
     @media screen and (max-width: 750px){
-        
-
-
+        #logo{
+            width: 25vw;
+        }
+        nav{
+            width:75vw;
+        }
     }
-
 
 /* ------------------------------------------------- */
 

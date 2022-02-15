@@ -2,23 +2,35 @@ CREATE SCHEMA IF NOT EXISTS `boutique` DEFAULT CHARACTER SET utf8mb4 ;
 
 USE `boutique` ;
 
+-- ------------------------------------
+--          Rights table             --
+-- ------------------------------------
+
+CREATE TABLE IF NOT EXISTS Rights (
+right_id INT AUTO_INCREMENT NOT NULL, 
+right_name VARCHAR(255), 
+PRIMARY KEY (right_id)
+) ENGINE=InnoDB;
+
 
 -- ------------------------------------
---          Clients table            --
+--          Users table            --
 -- ------------------------------------
 
-CREATE TABLE IF NOT EXISTS Clients (
-client_id INT AUTO_INCREMENT NOT NULL,
+CREATE TABLE IF NOT EXISTS Users (
+id_user INT AUTO_INCREMENT NOT NULL,
 firstname VARCHAR(255),
 lastname VARCHAR(255),
 email VARCHAR(255),
 password VARCHAR(255),
 phone VARCHAR(10),
 has_fidelity_bonus BOOLEAN,
+right_id INT NOT NULL,
 birthday DATE,
 address VARCHAR(255),
 zip_code INT(5),
-PRIMARY KEY (client_id)
+PRIMARY KEY (id_user),
+CONSTRAINT FK_Clients_right_id_Rights FOREIGN KEY (right_id) REFERENCES Rights (right_id)
 ) ENGINE=InnoDB;
 
 
@@ -28,12 +40,11 @@ PRIMARY KEY (client_id)
 
 CREATE TABLE IF NOT EXISTS Orders (
 order_id INT AUTO_INCREMENT NOT NULL,
-client_id INT NOT NULL,
+id_user INT NOT NULL,
 date_ordered DATE,
 PRIMARY KEY (order_id),
-CONSTRAINT FK_Orders_client_id_Clients FOREIGN KEY (client_id) REFERENCES Clients (client_id)
+CONSTRAINT FK_Orders_id_user_Users FOREIGN KEY (id_user) REFERENCES Users (id_user)
 ) ENGINE=InnoDB;
-
 
 
 -- ------------------------------------

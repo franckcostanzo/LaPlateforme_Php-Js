@@ -10,12 +10,12 @@ class User extends Model {
     { 
         $params = array($firstname, $lastname, md5($password), $email, $phone, $birthday, $address, $zipCode);
 
-        $sql = 'INSERT INTO clients (client_id, firstname, lastname,' 
+        $sql = 'INSERT INTO users (id_user, firstname, lastname,' 
                                             .'password, email, phone, has_fidelity_bonus,'
-                                            .'birthday, address, zip_code )' 
+                                            .'right_id, birthday, address, zip_code )' 
                 .'VALUES (NULL, ?, ?,' 
                 .'?, ?, ?, 0,'
-                .'?, ?, ?)';
+                .'1, ?, ?, ?)';
 
         $register = $this->executerRequete($sql, $params);
 
@@ -27,7 +27,7 @@ class User extends Model {
     {        
         $params = array($firstname, $lastname, $email, md5($password));
 
-        $sql = "SELECT `firstname`, `lastname`,`email` FROM `clients` 
+        $sql = "SELECT `firstname`, `lastname`,`email` FROM `users` 
                         WHERE `firstname` LIKE ? AND `lastname` LIKE ? AND `email` LIKE ? AND `password` LIKE ?";
                         
         $checkQuery = $this->executerRequete($sql,$params);
@@ -39,7 +39,7 @@ class User extends Model {
     {
         $params = array(md5($newPassword), $firstname, $lastname, md5($password));
 
-        $sql = "UPDATE `clients` 
+        $sql = "UPDATE `users` 
         SET `password` = ?                    
         WHERE `firstname` LIKE ? AND `lastname` LIKE ? AND `password` LIKE ?";
 
