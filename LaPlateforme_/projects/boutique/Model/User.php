@@ -48,5 +48,17 @@ class User extends Model {
         return $updateQuery;
     }
 
+    public function getAllInfo($firstname, $lastname, $email, $password)
+    {
+        $params = array($firstname, $lastname, $email, md5($password));
+
+        $sql = "SELECT * FROM `users` 
+                WHERE `firstname` LIKE ? AND `lastname` LIKE ? AND `email` LIKE ? AND `password` LIKE ?";
+        
+        $selectQuery = $this->executerRequete($sql, $params);
+        
+        return $selectQuery;
+    }
+
 
 }

@@ -1,7 +1,7 @@
 <?php $title = 'inscription' ?>
+<?php session_start(); include('Controller/UserController.php') ?>
 
-<?php include('./Elements/header.php');?>
-
+<?php ob_start(); ?>
 <main class="my-3 mx-5 px-5 d-flex flex-column align-items-center">
     <form action="inscription.php" method="POST">
         <?php 
@@ -54,6 +54,6 @@
         </p>
     </form>
 </main>
+<?php $content = ob_get_clean();?>
 
-</body>
-</html>
+<?php require ('Elements/gabarit.php'); ?>

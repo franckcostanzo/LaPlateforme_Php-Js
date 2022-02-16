@@ -25,22 +25,14 @@ a, a:hover {
     text-decoration: inherit; /* no underline */
 }
 
-#disp {
-    display:none;
-}
+
     /* ------------- */
     /*     MOBILE   */
     /* ------------- */
 
     @media screen and (max-width: 750px){
         
-        #undisp {
-            display:none!important;
-        }
-
-        #disp {
-            display:block;
-        }              
+                  
 
     }
 /* ------------------------------------------------- */
@@ -53,10 +45,16 @@ header{
     display:flex;
 }
 
+.menuTxt{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 2em;
+}
+
 #logo{
     width: 10vw;
 }
-nav{
+
+#desktopNav{
     display:flex;
     flex-direction: column;
     align-items: center;
@@ -64,6 +62,22 @@ nav{
     height:15vh;
     background-color: #ffe330;
 }
+
+#scrollDownNav {
+    display:none!important;
+}
+
+#searchImg{
+    width:5vw;
+}
+
+#decoBtn{
+    background: none;
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
+    text-shadow: 0px 0px 0px transparent;
+}
+
 
     /* ------------- */
     /*     MOBILE   */
@@ -73,9 +87,23 @@ nav{
         #logo{
             width: 25vw;
         }
-        nav{
-            width:75vw;
+        
+        #searchImg{
+            width:8vw;
         }
+
+        #desktopNav {
+            display:none!important;
+        }
+
+        #scrollDownNav {
+            display:flex!important;
+            flex-direction: column;
+            align-items: center;
+            width:75vw;
+            background-color: #ffe330;
+            height:15vh;
+        }   
     }
 
 /* ------------------------------------------------- */

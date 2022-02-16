@@ -1,7 +1,7 @@
 <?php $title = 'connexion' ?>
-
-<?php include('./Elements/header.php');?>
-   
+<?php session_start(); include('Controller/UserController.php') ?>
+  
+<?php ob_start(); ?>
 <main class="my-3 mx-5 px-5 d-flex flex-column align-items-center">
     <form action="connexion.php" method="POST">
 
@@ -39,7 +39,7 @@
         </p>
         
     </form>
-</main>    
-    
-</body>
-</html>
+</main>
+<?php $content = ob_get_clean();?>
+
+<?php require ('Elements/gabarit.php'); ?>

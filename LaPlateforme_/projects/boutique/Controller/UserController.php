@@ -79,16 +79,22 @@ if (isset($_POST['login_user']))
     $selectQuery = $user->checkExists($firstname, $lastname, $email, $password);
     $row = $selectQuery->fetch();
 
+    
+
     //check if user exists
     if ($selectQuery->rowCount() == 1) 
     { 
       session_start();    
       session_destroy();
       session_start();
+      $userInfos = $user->getAllInfo($firstname, $lastname, $email, $password);
+      $infoRows = $userInfos->fetch();      
       $_SESSION["connected"] = true;
-      $_SESSION['firstname'] = $row["firstname"];
-      $_SESSION['lastname'] = $row["lastname"];
-      $_SESSION['email'] = $row["email"];
+      $_SESSION['row'] = $infoRows;
+      $_SESSION['firstname'] = $infoRows["firstname"];
+      $_SESSION['lastname'] = $infoRows["lastname"];
+      $_SESSION['email'] = $infoRows["email"];
+      $_SESSION['rights'] = $infoRows["right_id"];
       $_SESSION['success'] = "You are now logged in";
       $_SESSION['count'] = 0;
       header('location: ./index.php'); 
@@ -128,4 +134,14 @@ if (isset($_POST['pwd_chg']))
   }
 }
 
-?>
+/*-------------------------------
+        DISCONNECT CHANGE 
+--------------------------------*/
+if (isset($_POST['deconnexion'])) 
+{
+  session_start();
+
+  session_destroy();
+  header('Location: ./index.php');
+  exit;
+}

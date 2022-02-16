@@ -1,7 +1,7 @@
 <?php $title = 'Profil' ?>
+<?php session_start(); include('Controller/UserController.php') ?>
 
-<?php include('./Elements/header.php');?>
-
+<?php ob_start(); ?>
 <main class="my-3 mx-5 px-5 d-flex flex-column align-items-center">
     <?php
         if (isset($_SESSION['firstname']))
@@ -43,8 +43,6 @@
         }
     ?>
 </main>
+<?php $content = ob_get_clean();?>
 
-    
-
-</body>
-</html>
+<?php require ('Elements/gabarit.php'); ?>
