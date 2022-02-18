@@ -103,7 +103,11 @@ header{
             width:75vw;
             background-color: #ffe330;
             height:15vh;
-        }   
+        }
+        
+        .menuTxt{
+            font-size: 0.9em;
+        }
     }
 
 /* ------------------------------------------------- */
@@ -111,22 +115,32 @@ header{
 /* -------------- */
 /*      MAIN      */
 /* -------------- */
-    .resa2 {
-        width : 20vh;
-        height: 7.5vh;
+
+    /* partie inscription */
+    
+
+    fieldset{
+        border-radius: 58px;
+        width:50em;
+        border: none;
+        padding: 2em; 
+        color: white;       
     }
 
-    #resaForm{
-        width: 60vh;
+    #sectionHead{
+        width:20vh;
     }
+    
 
     /* ------------- */
     /*     MOBILE   */
     /* ------------- */
 
-    @media screen and (max-width: 750px){   
+    @media screen and (max-width: 750px){
         
-
+        fieldset{
+            width: 18em;
+        }
     }
 
 /* ------------------------------------------------- */

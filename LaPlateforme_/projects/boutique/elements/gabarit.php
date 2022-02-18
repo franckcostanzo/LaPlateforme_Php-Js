@@ -34,8 +34,7 @@
             <?php if (isset($_SESSION['firstname'])) : ?>
                 <a href="profil.php" class="mx-2 menuTxt">Profil</a>
                 <form action="#" method="POST">
-                    <button type="submit" name="deconnexion" class="ms-2 me-4 menuTxt" id="decoBtn">
-                        Déconnexion
+                    <button type="submit" name="deconnexion" class="ms-2 me-4 menuTxt text-center" id="decoBtn">Déconnexion
                     </button>
                 </form>
             <?php else : ?>                   

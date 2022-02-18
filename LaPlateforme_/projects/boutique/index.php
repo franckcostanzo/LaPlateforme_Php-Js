@@ -1,5 +1,11 @@
 <?php $title = 'Accueil' ?>
-<?php session_start(); include('Controller/UserController.php') ?>
+<?php session_start(); 
+include('Controller/UserController.php'); 
+include('Model/Product.php'); 
+$product = new Product();
+$result = $product->getAllInfo('doudou');
+$object =  $result[0];
+?>
 
 <?php ob_start(); ?>
 <main>
