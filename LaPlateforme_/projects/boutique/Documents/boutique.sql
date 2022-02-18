@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS Products (
 product_id INT AUTO_INCREMENT NOT NULL,
 product_name VARCHAR(255),
 img_url VARCHAR(255),
-unit_price DECIMAL,
+unit_price DECIMAL (10,2),
 product_description TEXT,
 units_in_stock INT,
 category_id INT NOT NULL,

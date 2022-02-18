@@ -3,6 +3,7 @@
 
 <?php ob_start(); ?>
 <main>
+<h1 class="text-center">Y A RIEN FFS!</h1>
 
 </main>
 <?php $content = ob_get_clean();?>
