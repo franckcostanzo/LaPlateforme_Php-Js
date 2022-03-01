@@ -59,7 +59,7 @@ if (isset($_POST['reg_user']))
 
 if (isset($_POST['login_user'])) 
 {
-  // // receive all input values from the form
+  // receive all input values from the form
   $password = htmlspecialchars($_POST['password']);
   $email = htmlspecialchars($_POST['email']);
 

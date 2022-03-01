@@ -19,7 +19,7 @@ include ('Controller/ProductController.php');
         
         <div class="d-flex flex-column m-3">
             <img src="<?= $temp->getImgUrl()?>" id="shopProductImg">
-            <a href="product.php?id=<?= $temp->getId()?>"><h4><?= $temp->getProductName()?><h4></a>
+            <a href="product.php?id=<?= $temp->getId() ?>"><h4><?= $temp->getProductName()?><h4></a>
             <p><?= $temp->getUnitPrice() ?>€</p>
         </div>
 

@@ -5,16 +5,16 @@
     public static function dbconnect(){
 
         //version locale
-        // $servername = 'localhost';
-        // $username = 'root';
-        // $password = '';
-        // $db = 'memory';
+        $servername = 'localhost';
+        $username = 'root';
+        $password = '';
+        $db = 'memory';
 
         //version pour plesk
-        $servername = 'localhost';
-        $username = 'franck-costanzo';
-        $password = 'Tisyoz84!!';
-        $db = 'franck-costanzo_memory';
+        // $servername = 'localhost';
+        // $username = 'franck-costanzo';
+        // $password = 'Tisyoz84!!';
+        // $db = 'franck-costanzo_memory';
 
         try 
         {
