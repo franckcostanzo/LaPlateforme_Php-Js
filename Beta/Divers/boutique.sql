@@ -83,8 +83,11 @@ CREATE TABLE IF NOT EXISTS Categories (
 -- ------------------------------------ 
      
 CREATE TABLE IF NOT EXISTS Sous_Categories (
-    id_sous_categorie INT AUTO_INCREMENT NOT NULL, 
-    nom_sous_categorie VARCHAR(255), 
+    id_sous_categorie INT AUTO_INCREMENT NOT NULL,
+    id_categorie INT NOT NULL, 
+    nom_sous_categorie VARCHAR(255),
+    CONSTRAINT FK_Sous_Categories_id_categorie_Categories
+    FOREIGN KEY (id_categorie) REFERENCES Categories (id_categorie),
     PRIMARY KEY (id_sous_categorie)) ENGINE=InnoDB;
 
 
@@ -103,7 +106,7 @@ CREATE TABLE IF NOT EXISTS Produits (
     id_sous_categorie INT NOT NULL,
     CONSTRAINT FK_Produits_id_catergorie_Categories 
     FOREIGN KEY (id_categorie) REFERENCES Categories (id_categorie),
-    CONSTRAINT FK_Produits_id_sous_categorie_Sous_Categories 
+    CONSTRAINT FK_Produits_id_sous_catergorie_Categories 
     FOREIGN KEY (id_sous_categorie) REFERENCES Sous_Categories (id_sous_categorie),
     PRIMARY KEY (id_produit)) ENGINE=InnoDB;  
 
@@ -136,15 +139,16 @@ INSERT INTO `categories` (`id_categorie`, `nom_categorie`) VALUES (NULL, 'agenda
 
 
 -- -------- SUBCATEGORIES -------------
-INSERT INTO `Sous_Categories` (`id_sous_categorie`, `nom_sous_categorie`) VALUES (NULL, 'bille');
-INSERT INTO `Sous_Categories` (`id_sous_categorie`, `nom_sous_categorie`) VALUES (NULL, 'feutre');
-INSERT INTO `Sous_Categories` (`id_sous_categorie`, `nom_sous_categorie`) VALUES (NULL, 'quatre couleurs');
-INSERT INTO `Sous_Categories` (`id_sous_categorie`, `nom_sous_categorie`) VALUES (NULL, 'plume');
-INSERT INTO `Sous_Categories` (`id_sous_categorie`, `nom_sous_categorie`) VALUES (NULL, 'fer');
-INSERT INTO `Sous_Categories` (`id_sous_categorie`, `nom_sous_categorie`) VALUES (NULL, 'plastique');
-INSERT INTO `Sous_Categories` (`id_sous_categorie`, `nom_sous_categorie`) VALUES (NULL, 'professionel');
-INSERT INTO `Sous_Categories` (`id_sous_categorie`, `nom_sous_categorie`) VALUES (NULL, 'etudiant');
-INSERT INTO `Sous_Categories` (`id_sous_categorie`, `nom_sous_categorie`) VALUES (NULL, 'enfant');
+INSERT INTO `Sous_Categories` (`id_sous_categorie`, `id_categorie`, `nom_sous_categorie`) VALUES (NULL, 1, 'bille');
+INSERT INTO `Sous_Categories` (`id_sous_categorie`, `id_categorie`, `nom_sous_categorie`) VALUES (NULL, 1, 'feutre');
+INSERT INTO `Sous_Categories` (`id_sous_categorie`, `id_categorie`, `nom_sous_categorie`) VALUES (NULL, 1, 'quatre couleurs');
+INSERT INTO `Sous_Categories` (`id_sous_categorie`, `id_categorie`, `nom_sous_categorie`) VALUES (NULL, 1, 'plume');
+INSERT INTO `Sous_Categories` (`id_sous_categorie`, `id_categorie`, `nom_sous_categorie`) VALUES (NULL, 2, 'fer');
+INSERT INTO `Sous_Categories` (`id_sous_categorie`, `id_categorie`, `nom_sous_categorie`) VALUES (NULL, 2, 'plastique');
+INSERT INTO `Sous_Categories` (`id_sous_categorie`, `id_categorie`, `nom_sous_categorie`) VALUES (NULL, 3, 'professionel');
+INSERT INTO `Sous_Categories` (`id_sous_categorie`, `id_categorie`, `nom_sous_categorie`) VALUES (NULL, 3, 'etudiant');
+INSERT INTO `Sous_Categories` (`id_sous_categorie`, `id_categorie`, `nom_sous_categorie`) VALUES (NULL, 3, 'enfant');
+
 
 -- -------- PRODUITS -------------
 INSERT INTO `produits` 

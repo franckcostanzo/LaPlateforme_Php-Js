@@ -16,15 +16,20 @@
     </form>
     
     <!-- Liens -->
-    <div class="col-sm-1 d-flex flew-row justify-content-between align-items-between">
+    <div class="d-flex flew-row justify-content-between align-items-between">
+
         <a href="shop.php" class="alert-link mx-2">Shop</a>
         <a href="#" class="alert-link mx-2">About</a>
-        <a href="#" class="alert-link mx-2">Contact</a>    
+        <a href="#" class="alert-link mx-2">Contact</a> 
+
         <?php if(isset($_SESSION['connected'])): ?>
+
             <?php if($_SESSION["droits"] == 1337) : ?>
                 <a href="admin.php" class="alert-link mx-2 text-danger">Admin </a> 
             <?php endif; ?>
-            <a href="profil.php" class="alert-link mx-2">Profil </a>            
+
+            <a href="profil.php" class="alert-link mx-2">Profil </a>
+
             <form method="POST">
                 <button type="submit" name="deconnexion" class="alert-link mx-2 menuTxt text-center" id="decoBtn">Déconnexion
                 </button>
@@ -32,13 +37,16 @@
             
             <!-- cart -->
             <form method="POST">
-                <button type="submit" class="btn rounded-0 px-2 mx-2" name="cart">
-                    <img src="View/icons/cart.svg" >
+                <button type="submit" class="btn mx-2 d-flex flew-row justify-content-center align-items-center" name="cart">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                 </button>
             </form>
+
         <?php else: ?>
+
             <a href="connexion.php" class="alert-link mx-2" >connexion</a>
-            <a href="inscription.php" class="alert-link mx-2" >inscription</a>    
+            <a href="inscription.php" class="alert-link mx-2" >inscription</a>   
+
         <?php endif; ?>
     </div>
 

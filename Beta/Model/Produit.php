@@ -13,29 +13,14 @@ class Produits extends Model
             $id_categorie, 
             $id_sous_categorie;
 
-    // Méthodes  
-    public function __construct() { }
-    
-    public function get_info_produits()
-    {
-        $conn=new pdo("mysql:host=localhost;dbname=boutique;charset=utf8", "root", "");
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-        // prepare la recuperation des infos de tout les produits 
-        $req = $conn->prepare("SELECT * FROM Produits order by id_produit DESC");
-        //execute la requete
-        $req->execute();
-        
-        $produits = $req->fetchAll();
-
-        return $produits;    
-    }
+    public function __construct() {}
 
     public function getProduitsFromId($id_produit)
     {
         $sql = " SELECT * FROM produits WHERE id_produit=:id_produit ";
         $params = ['id_produit' => $id_produit];
         $result = $this->selectQuery($sql, $params);
-        $contient=$result->fetch();
+        $contient = $result->fetch();
         return $contient;
     }
 
@@ -43,11 +28,11 @@ class Produits extends Model
         $sql = " SELECT quantite FROM produits WHERE id_produit=:id_produit ";
         $params = ['id_produit' => $id_produit];
         $result = $this->selectQuery($sql, $params);
-        $contient=$result->fetch();
+        $contient = $result->fetch();
         return $contient;
     }
 
-    public function updateProduit()
+    public function updateProduit($nom, $prix, $uniteEnStock, $description, $idCategorie, $idSousCategorie, $idProduit)
     {
         $sql = "UPDATE produits 
                 SET nom_produit = ?,
@@ -56,27 +41,170 @@ class Produits extends Model
                 id_categorie = ?, id_sous_categorie = ?                    
                 WHERE `id_produit` = ?";
 
-        $params = array($_POST["nom_produit"],
-                        $_POST["unit_price"], $_POST["units_in_stock"], 
-                        $_POST["description_produit"],
-                        $_POST["id_categorie"], $_POST["id_sous_categorie"],
-                        $_POST["id_produit"]);
+        $params = array($nom, $prix, $uniteEnStock, $description, $idCategorie, $idSousCategorie, $idProduit);
 
         $updateQuery = $this->selectQuery($sql, $params);
 
         return $updateQuery;
     }
 
+    public function createProduit($nom, $imgUrl, $prix, $uniteEnStock, $description, $categorie, $souscategorie)
+    {
+        $sql = "INSERT INTO produits (nom_produit, img_url, unit_price, 
+                                        description_produit, units_in_stock, 
+                                        id_categorie, id_sous_categorie)
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        $params = array($nom, $imgUrl, $prix,
+                            $description, $uniteEnStock,
+                            $categorie, $souscategorie);
+
+        $this->selectQuery($sql,$params);        
+    }
+
     public function getAllProductWithCatAndSubCat()
     {
         $sql="SELECT produits.*, categories.nom_categorie, sous_categories.nom_sous_categorie
                 FROM produits
-                INNER JOIN categories       ON produits.id_categorie = categories.id_categorie
-                INNER JOIN sous_categories    ON produits.id_sous_categorie = sous_categories.id_sous_categorie";
+                INNER JOIN categories           ON produits.id_categorie = categories.id_categorie
+                INNER JOIN sous_categories      ON produits.id_sous_categorie = sous_categories.id_sous_categorie";
 
         $result = $this->selectQuery($sql)->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
     }
+
+    public function getAllProductsByCatId($id)
+    {
+        $sql="SELECT *
+                FROM produits
+                WHERE id_categorie = ?";
+
+        $params = array($id);
+
+        $result = $this->selectQuery($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+
+    }
+
+    public function getAllProductsBySubCatId($id)
+    {
+        $sql="SELECT *
+                FROM produits
+                WHERE id_sous_categorie = ?";
+
+        $params = array($id);
+
+        $result = $this->selectQuery($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+
+    }
+
+
+    public function getProductsBySearch($search)
+    {
+        $sql = "SELECT produits.*, categories.nom_categorie, sous_categories.nom_sous_categorie 
+        FROM produits 
+        INNER JOIN categories ON produits.id_categorie = categories.id_categorie 
+        INNER JOIN sous_categories ON produits.id_sous_categorie = sous_categories.id_sous_categorie 
+        WHERE CONCAT(produits.nom_produit, produits.description_produit, categories.nom_categorie, sous_categories.nom_sous_categorie) 
+        LIKE ?;";
+
+        $params = array("%".$search."%");
+
+        $result = $this->selectQuery($sql, $params);
+
+        $search_result=$result->fetchAll();
+        
+        return $search_result;
+    }
+
+    public function getImgById($id)
+    {
+        $sql = "SELECT img_url FROM produits WHERE id_produit = ?";
+
+        $params = array($id);
+
+        $result = $this->selectQuery($sql, $params)->fetch(PDO::FETCH_ASSOC);
+
+        return $result['img_url'];
+
+    }
+
+    public function getNomById($id)
+    {
+        $sql = "SELECT nom_produit FROM produits WHERE id_produit = ?";
+
+        $params = array($id);
+
+        $result = $this->selectQuery($sql, $params)->fetch(PDO::FETCH_ASSOC);
+
+        return $result['nom_produit'];
+
+    }
+
+    public function getUnitsInStockById($id)
+    {
+        $sql = "SELECT units_in_stock FROM produits WHERE id_produit = ?";
+
+        $params = array($id);
+
+        $result = $this->selectQuery($sql, $params)->fetch(PDO::FETCH_ASSOC);
+
+        return $result['units_in_stock'];
+
+    }
+
+    public function getUnitPriceById($id)
+    {
+        $sql = "SELECT unit_price FROM produits WHERE id_produit = ?";
+
+        $params = array($id);
+
+        $result = $this->selectQuery($sql, $params)->fetch(PDO::FETCH_ASSOC);
+
+        return $result['unit_price'];
+
+    }
+
+    public function getDescriptionById($id)
+    {
+        $sql = "SELECT description_produit FROM produits WHERE id_produit = ?";
+
+        $params = array($id);
+
+        $result = $this->selectQuery($sql, $params)->fetch(PDO::FETCH_ASSOC);
+
+        return $result['description_produit'];
+
+    }
+
+    public function getCategorieById($id)
+    {
+        $sql = "SELECT id_categorie FROM produits WHERE id_produit = ?";
+
+        $params = array($id);
+
+        $result = $this->selectQuery($sql, $params)->fetch(PDO::FETCH_ASSOC);
+
+        return $result['id_categorie'];
+    }
+
+    public function getSousCategorieById($id)
+    {
+        $sql = "SELECT id_sous_categorie  FROM produits WHERE id_produit = ?";
+
+        $params = array($id);
+
+        $result = $this->selectQuery($sql, $params)->fetch(PDO::FETCH_ASSOC);
+
+        return $result['id_sous_categorie '];
+    }
+
+
+    
+
 
 }

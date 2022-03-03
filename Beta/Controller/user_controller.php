@@ -1,7 +1,7 @@
 <?php
 
 include_once ('Model/User.php');
-$user= new User();
+$user = new User();
 $_SESSION['errors'] = array();
 
 // Subscribe____________________________________________________________________________________________________________

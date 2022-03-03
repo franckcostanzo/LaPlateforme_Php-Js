@@ -6,7 +6,5 @@ Class Paiement extends Model
 {
     public $id_panier, $id_utilisateur;
 
-    function __construct()
-    {
-    }
+    function __construct(){}
 }

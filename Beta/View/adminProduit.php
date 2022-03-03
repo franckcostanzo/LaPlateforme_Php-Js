@@ -2,7 +2,7 @@
 require_once('Model/Produit.php');
 $produit = new Produits(); 
 ob_start(); ?>
-
+<a class="btn btn-dark rounded-0 px-4 mt-4 mb-4" href="shop.php?addProduit" >Ajouter un produit</a>
 <table class="table table-hover w-90 my-1">
     <thead class="my-1">
         <tr class="text-center align-middle">
