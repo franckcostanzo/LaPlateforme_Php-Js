@@ -17,5 +17,16 @@ Class SousCategorie extends Model
         return $infos;
 
     }
+
+
+    public function createSousCategorie($nom, $id_categorie)
+    {
+        $sql = "INSERT INTO sous_categories (id_sous_categorie, id_categorie, nom_sous_categorie)
+                VALUES (NULL, ?, ?)";
+
+        $params = array($id_categorie, $nom);
+
+        $this->selectQuery($sql, $params);
+    }
     
 }

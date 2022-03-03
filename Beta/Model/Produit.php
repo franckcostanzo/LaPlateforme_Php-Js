@@ -48,6 +48,17 @@ class Produits extends Model
         return $updateQuery;
     }
 
+    public function updateImg($imgUrl, $idProduit)
+    {
+        $sql = "UPDATE produits
+                SET img_url = ?
+                WHERE `id_produit` = ?";
+
+        $params = array($imgUrl, $idProduit);
+
+        $this->selectQuery($sql, $params);
+    }
+
     public function createProduit($nom, $imgUrl, $prix, $uniteEnStock, $description, $categorie, $souscategorie)
     {
         $sql = "INSERT INTO produits (nom_produit, img_url, unit_price, 
@@ -200,7 +211,7 @@ class Produits extends Model
 
         $result = $this->selectQuery($sql, $params)->fetch(PDO::FETCH_ASSOC);
 
-        return $result['id_sous_categorie '];
+        return $result['id_sous_categorie'];
     }
 
 

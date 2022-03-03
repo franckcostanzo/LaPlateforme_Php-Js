@@ -1,13 +1,23 @@
 <?php require_once ('Model/Categorie.php'); ?>
 <?php ob_start(); ?>
-<div class="container">                
+<div class="container">               
     <div class="row">  
         <div  class="col-md-3">
             <img class="image" src="<?= $produit->getImgById($_GET['article_id'])?>">
         </div>
             
         <div class="d-flex flex-column col-md-9 my-5">
-            <form action="#" method="POST">
+            <form action="#" method="POST" class="my-2">
+                <input type="hidden" value="<?= $_GET['article_id'] ?>" name ="id_produit" >
+                <div class="form-group my-1">
+                    <label for="img" class="alert-link text-danger"> Changer l'image : </label><br>
+                    <input type="file" class="form-control-file" name="img" id="img">
+                    <input type="submit" name="chg_img" value="Changer l'image">
+                </div>
+                
+            </form>
+            <form action="#" method="POST" >
+            <input type="hidden" value="<?= $_GET['article_id'] ?>" name="id_produit" >
                 <div class="form-group my-1">
                     <label for="nameGrp"> Nom de produit : </label>
                     <input type="text" name="nom_produit" class="form-control" id="nameGrp" value="<?= $produit->getNomById($_GET['article_id']) ?>">

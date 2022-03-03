@@ -1,8 +1,31 @@
 <?php $soustitre = "gestion produit";
 require_once('Model/Produit.php');
+require_once('Model/Categorie.php');
 $produit = new Produits(); 
 ob_start(); ?>
-<a class="btn btn-dark rounded-0 px-4 mt-4 mb-4" href="shop.php?addProduit" >Ajouter un produit</a>
+
+    <a class="btn btn-dark rounded-0 px-4" href="shop.php?addProduit" >Ajouter un produit</a>
+    <form action="" method="POST" class="d-flex justify-content-center my-1">
+        <input type="submit" name="createCategorie" 
+        value="Créer une catégorie" class="btn btn-dark rounded-0 px-4">
+        <input type="text" name="nomCategorie">        
+    </form>
+    <form action="" method="POST" class="d-flex justify-content-center my-1">
+        <input type="submit" name="createSousCategorie" 
+        value="Créer une sous-catégorie" class="btn btn-dark rounded-0 px-4">
+        <select name="id_categorie" id="categorie_grp">
+            <?php 
+                $categories = new Categorie();
+                $catQuery = $categories->getAllCategories();
+                foreach($catQuery as $cat) : ?>
+                    <option value="<?= $cat['id_categorie'] ?>">
+                        <?= $cat['nom_categorie']?>
+                    </option>
+            <?php endforeach;?>        
+        </select>
+        <input type="text" name="nomSousCategorie">
+    </form>
+
 <table class="table table-hover w-90 my-1">
     <thead class="my-1">
         <tr class="text-center align-middle">
@@ -30,7 +53,7 @@ ob_start(); ?>
             <td><?= $rows["unit_price"] ?></td>
             <td><?= $rows["units_in_stock"] ?></td>
             <td>
-                <a class="alert-link" href="article.php?id=<?=$rows['id_produit']?>">Modifier</a>
+                <a class="alert-link" href="shop.php?article_id=<?=$rows['id_produit']?>">Modifier</a>
             </td>
         </tr>
     <?php endforeach; ?>

@@ -1,6 +1,10 @@
 <?php 
 include_once ('Model/Produit.php');
+require_once ('Model/Categorie.php');
+require_once ('Model/SousCategorie.php');
 $produit = new Produits();
+$categorie = new Categorie();
+$sousCategorie = new SousCategorie();
 $items;
 
 /*-----------------------------
@@ -22,8 +26,33 @@ if(isset($_POST['create_prod']))
 }
 
 /*-----------------------------
+        CREATE CATEGORIE
+-----------------------------*/
+if(isset($_POST['createCategorie']))
+{
+    $nom = $_POST['nomCategorie'];
+
+    $categorie->createCategorie($nom);
+}
+
+
+/*-----------------------------
+    CREATE SOUS-CATEGORIE
+-----------------------------*/
+if(isset($_POST['createSousCategorie']))
+{
+    $nom = $_POST['nomSousCategorie'];
+    $idCategorie = $_POST['id_categorie'];
+
+    $sousCategorie->createSousCategorie($nom, $idCategorie);
+
+}
+
+
+/*-----------------------------
                UPDATE
------------------------------*/   
+-----------------------------*/
+// chg txt data  
 if(isset($_POST['update_prod']))
 {
     $nom = $_POST["nom_produit"];
@@ -35,6 +64,18 @@ if(isset($_POST['update_prod']))
     $idProduit = $_POST["id_produit"];
     $produit->updateProduit($nom, $prix, $uniteEnStock, $description, $idCategorie, $idSousCategorie, $idProduit);    
 }
+
+//chg img
+if(isset($_POST['chg_img']))
+{
+    $targetPath = 'View/ProductImg/';
+    $filename = substr($_POST['nom_produit'],0,10);
+    $targetFile = $targetPath.$filename.'.jpg';
+    $idProduit = $_POST["id_produit"];
+    move_uploaded_file($_FILES['img']['tmp_name'], $targetFile);
+    $produit->updateImg($targetFile, $idProduit);
+}
+
 
 /*---------------------------
             GESTION VUE
