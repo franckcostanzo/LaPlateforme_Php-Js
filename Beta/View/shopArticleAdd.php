@@ -57,7 +57,7 @@
                         </select>
                     </div>
                     <div class="my-2 d-flex flex-row justify-content-center">
-                        <input type="submit" name="create_prod" value="modifier">
+                        <input type="submit" name="create_prod" value="créer">
                     </div>
                     
                 </div>                        

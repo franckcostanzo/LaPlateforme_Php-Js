@@ -120,7 +120,8 @@ class Produits extends Model
         FROM produits 
         INNER JOIN categories ON produits.id_categorie = categories.id_categorie 
         INNER JOIN sous_categories ON produits.id_sous_categorie = sous_categories.id_sous_categorie 
-        WHERE CONCAT(produits.nom_produit, produits.description_produit, categories.nom_categorie, sous_categories.nom_sous_categorie) 
+        WHERE CONCAT(produits.nom_produit, produits.description_produit, 
+        categories.nom_categorie, sous_categories.nom_sous_categorie) 
         LIKE ?;";
 
         $params = array("%".$search."%");
@@ -215,6 +216,16 @@ class Produits extends Model
     }
 
 
+    public function deleteProductById ($idProduit)
+    {
+        $sql = "DELETE FROM Produits
+                where id_produit = ?";
+        
+        $params = array($idProduit);
+
+        $this->selectQuery($sql, $params);
+        
+    }
     
 
 
