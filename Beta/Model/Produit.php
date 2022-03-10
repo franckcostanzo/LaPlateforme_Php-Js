@@ -20,7 +20,7 @@ class Produits extends Model
         $sql = " SELECT * FROM produits WHERE id_produit=:id_produit ";
         $params = ['id_produit' => $id_produit];
         $result = $this->selectQuery($sql, $params);
-        $contient = $result->fetch();
+        $contient = $result->fetch(PDO::FETCH_ASSOC);
         return $contient;
     }
 
@@ -227,6 +227,15 @@ class Produits extends Model
         
     }
     
+    public function reduceQuantity($itemQantity, $idProduit)
+    {
+        $params = array(intval($itemQantity), $idProduit);
 
+        $sql = "UPDATE produits
+                SET units_in_stock = units_in_stock - ?
+                WHERE `id_produit` = ?";
+
+        $this->selectQuery($sql, $params);
+    }
 
 }

@@ -110,3 +110,11 @@ if(isset($_POST['submitUserUpdate'])){
     $tmp.='</div>';
 }
 
+// details commande______________________________________________________________________________________________________
+
+if(isset($_POST['detailsCommande'])){
+
+    $_SESSION['commande_details']=$_POST['detailsCommande'];
+    header('location:commande.php');
+    exit();
+}

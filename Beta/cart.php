@@ -24,8 +24,12 @@
                     <th class="col-md-4 text-end">Mis à jour panier</th>
                 </tr>
 
+                <?php $infosProduitsDansPanier= [];?>
                 <!-- table content -->
+                
                 <?php  for($i=0;$i<=isset($products_infos[$i]);$i++): ?>
+                    <?php array_push($infosProduitsDansPanier, array($products_infos[$i]["id_produit"],$quantity[$i])) ?>
+                    
                 <tr class="p-1">
                     <td><img src="<?= $products_infos[$i]['img_url'] ?>" class="image"></td>
                     <td class="align-middle"><?= $quantity[$i]; $quant[]=$quantity[$i]; ?>&#160;<i class="small">unité(s)</i></td>
@@ -48,9 +52,13 @@
                             <form method="POST">
                                 <label for="selectQuant">Qty:</label>
                                 <select name="selectQuant" class="mt-1">
-                                    <option value="<?php echo $quantity[$i]; ?>,<?= $products_infos[$i]['id_produit'];?>"> <?= $quantity[$i]; ?> </option>
+                                    
                                     <?php for($j=0;$j<=intval($products_infos[$i]['units_in_stock']);$j++): ?>
+                                        <?php if ($j == $quantity[$i] ) :?>
+                                            <option value="<?php echo $j; ?>,<?= $products_infos[$i]['id_produit'];?>" SELECTED> <?= $j; ?> </option>
+                                        <?php else :?>
                                         <option value="<?php echo $j; ?>,<?= $products_infos[$i]['id_produit'];?>"> <?= $j; ?> </option>
+                                        <?php endif; ?>
                                     <?php endfor; ?>
                                 </select>
                                 <button class="form-check btn btn-dark shadow-sm rounded-2 mb-1 small" 
@@ -62,13 +70,14 @@
                 </tr>
                 <?php endfor; ?>
             </table>           
-            
-            <form method="POST" action="" class="d-flex flex-column align-items-end form-check">
+
+            <?php $_SESSION['infosProduitsDansPanier'] = $infosProduitsDansPanier;?>
+            <form method="POST" action="paiement.php" class="d-flex flex-column align-items-end form-check">
                 <div class="h3 mt-4">
-                    <?php for($i=0;$i<=isset($price[$i]);$i++){ $tot+=$price[$i]*$quant[$i]; } echo 'cart total: '.$tot; ?>
+                    <?php for($i=0;$i<=isset($price[$i]);$i++){ $tot+=$price[$i]*$quant[$i]; $_SESSION['totalCommande'] = $tot;} echo 'cart total: '.$tot; ?>
                 </div>
                 <div >
-                    <button type="submit" class="btn btn-dark rounded-2 shadow-sm px-5" name="payCart" value="<?= $tot ?>"><b>pay</b></button>
+                    <button type="submit" class="btn btn-dark rounded-2 shadow-sm px-5" name="payCart"><b>pay</b></button>
                 </div>
             </form>
 
