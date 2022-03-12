@@ -13,6 +13,8 @@
 ul,
 li {
     list-style-type: none;
+    margin: 0!important;
+    padding: 0!important;
 }
 
 img {
@@ -20,12 +22,28 @@ img {
     height: 100%;
 }
 
+body {
+    
+}
+
+.displayDesktop {
+    display:none!important;
+}
+
 
     /* ------------- */
-    /*     MOBILE   */
+    /*    DESKTOP    */
     /* ------------- */
 
-    @media screen and (max-width: 750px){
+    @media screen and (min-width: 750px){
+
+        .displayMobile{
+            display: none!important;
+        }
+
+        .displayDesktop{
+            display:flex!important;
+        }
               
 
     }
@@ -36,14 +54,35 @@ img {
 /*     HEADER    */
 /* ------------- */
 
+header, footer{
+    background-color: #003554;
+}
+
+#myPhoto{
+    width:120px;
+}
+
+.logos {
+    width:90px;
+}
 
     /* ------------- */
-    /*     MOBILE   */
+    /*    DESKTOP    */
     /* ------------- */
 
-    @media screen and (max-width: 750px){
+    @media screen and (min-width: 750px){
 
+        header{
+           flex-direction: row!important;
+        }
 
+        #myPhoto{
+            width:200px;
+        }
+
+        .logos {
+            width:120px;
+        }
         
     }
 
@@ -53,13 +92,29 @@ img {
 /*      MAIN      */
 /* -------------- */
 
+/* Présentation */
+
+.aboutMe{
+    background-color: #bdc3c6;
+}
+
+
+/* projets */
+#myProjects{
+    background-color: #91DBF7 ;
+}
+
+/* travail */
+.myWorkInfos{
+    background-color: #006494;
+}
 
 
     /* ------------- */
-    /*     MOBILE   */
+    /*    DESKTOP    */
     /* ------------- */
 
-    @media screen and (max-width: 750px){   
+    @media screen and (min-width: 750px){   
         
  
 
@@ -73,12 +128,14 @@ img {
 
 
     /* ------------- */
-    /*     MOBILE   */
+    /*    DESKTOP    */
     /* ------------- */
 
-    @media screen and (max-width: 750px){   
+    @media screen and (min-width: 750px){   
         
- 
+        .logosBottom {
+            width:50px;
+        }
 
     }
 
