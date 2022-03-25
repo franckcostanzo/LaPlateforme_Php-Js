@@ -129,7 +129,7 @@ CREATE TABLE IF NOT EXISTS Contient (
 
 
 -- ------------------------------------
---           table contient          --
+--           table carousel         --
 -- ------------------------------------
 
 CREATE TABLE IF NOT EXISTS carousel_produits(
