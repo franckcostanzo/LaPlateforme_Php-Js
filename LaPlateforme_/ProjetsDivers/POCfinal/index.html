@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/POCfinal/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/POCfinal/css/bootstrap.min.css">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+    <script src="https://kit.fontawesome.com/37338f1a7b.js" crossorigin="anonymous"></script>
+    <script src="./js/main.js"></script>
+    <title>WorkShop</title>
+</head>
+<body class="d-flex flex-row" style="background-image: url('/POCfinal/media/bg1.jpg');">
+
+    <div class="col-2 sideBG">
+        <div class="d-flex flex-column justify-content-around align-items-center h-100">
+            <img src="/POCfinal/media/logo.gif" >
+            <div>
+                <h4 class="text-info">Background</h4>
+                <div class="container d-flex flex-column justify-content-around align-items-center">
+                    <button class="border border-dark rounded-pill boxesBG my-2" id="BG1"></button>
+                    <button class="border border-dark rounded-pill boxesBG my-2" id="BG2"></button>
+                    <button class="border border-dark rounded-pill boxesBG my-2" id="BG3"></button>
+                    <button class="border border-dark rounded-pill boxesBG my-2" id="BG4"></button>
+                    <button class="border border-dark rounded-pill boxesBG my-2" id="BG5"></button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="d-flex flex-column justify-content-center align-items-center col-8 pt-5">
+        <div class="rounded-pill border border-info bg-dark w-25" id="price">
+            <p class="text-info h1 text-center" >40000$</p>
+        </div>
+        <div id="head" class="d-flex flex-row pt-5">
+            <button id="L1" class="btn"><i class="fa-solid fa-arrow-left shadow-lg p-3 mb-5 bg-body rounded-pill"></i></button>
+            <model-viewer bounds="tight" enable-pan src="./models/Head_01_2.gltf" ar ar-modes="webxr scene-viewer quick-look" camera-controls poster="poster.webp" shadow-intensity="0" exposure="0.25" shadow-softness="0" environment-image="neutral">
+                <div class="progress-bar hide" slot="progress-bar">
+                    <div class="update-bar"></div>
+                </div>
+            </model-viewer>
+            <button id="R1" class="btn"><i class="fa-solid fa-arrow-right shadow-lg p-3 mb-5 bg-body rounded-pill"></i></button>
+        </div>
+    
+        <div id="body" class="d-flex flex-row">
+            <button id="L2" class="btn"><i class="fa-solid fa-arrow-left shadow-lg p-3 mb-5 bg-body rounded-pill"></i></button>
+            <model-viewer src="./models/Body_V1.gltf" id="chest"
+            alt="VR Headset" camera-controls ar ios-src="models/Body_V3.gltf" shadow-intensity="0" exposure="0.04" shadow-softness="0">
+            </model-viewer>
+            <button id="R2" class="btn"><i class="fa-solid fa-arrow-right shadow-lg p-3 mb-5 bg-body rounded-pill"></i></button>
+        </div>
+        
+        <div id="skel">
+            <model-viewer src="models/O1_M1_S1_V1.gltf" 
+            alt="VR Headset" camera-controls ar ios-src="models/Body_V3.gltf" shadow-intensity="0" exposure="0.04" shadow-softness="0">
+            </model-viewer>
+        </div>
+
+        
+    </div>
+    
+    <div class="col-2 sideBG">
+        <div class="d-flex flex-column justify-content-center align-items-center h-100">
+            <h4 class="text-info">Colors</h4>
+            <div class="container d-flex flex-row justify-content-around">
+                <button class="border border-dark rounded-pill boxes bg-info"></button>
+                <button class="border border-dark rounded-pill boxes bg-warning"></button>
+                <button class="border border-dark rounded-pill boxes bg-success"></button>
+                <button class="border border-dark rounded-pill boxes bg-dark"></button>
+            </div>
+            <div class="container d-flex flex-row justify-content-around mt-2">
+                <button class="border border-dark rounded-pill boxes bg-primary"></button>
+                <button class="border border-dark rounded-pill boxes bg-secondary"></button>
+                <button class="border border-dark rounded-pill boxes bg-danger"></button>
+                <button class="border border-dark rounded-pill boxes"></button>
+            </div>
+
+            <h4 class="text-info mt-5">Materials</h4>
+            <div class="container d-flex flex-row justify-content-around">
+                <button class="border border-dark rounded-pill boxes" id="mat1"></button>
+                <button class="border border-dark rounded-pill boxes" id="mat2"></button>
+                <button class="border border-dark rounded-pill boxes" id="mat3"></button>
+                <button class="border border-dark rounded-pill boxes" id="mat4"></button>
+            </div>
+            <div class="container d-flex flex-row justify-content-around mt-2">
+                <button class="border border-dark rounded-pill boxes" id="mat5"></button>
+                <button class="border border-dark rounded-pill boxes" id="mat6"></button>
+                <button class="border border-dark rounded-pill boxes" id="mat7"></button>
+                <button class="border border-dark rounded-pill boxes" id="mat8"></button>
+            </div>
+        </div>
+    </div>
+
+    
+    
+</body>
+</html>
