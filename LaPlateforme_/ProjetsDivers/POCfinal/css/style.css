@@ -38,27 +38,27 @@ body{
 }
 
 #BG1 {
-    background-image: url('/POCfinal/media/bg1.jpg');
+    background-image: url('./POCfinal/media/bg1.jpg');
     background-size: contain;
 }
 
 #BG2 {
-    background-image: url('/POCfinal/media/bg2.jpg');
+    background-image: url('./POCfinal/media/bg2.jpg');
     background-size: contain;
 }
 
 #BG3 {
-    background-image: url('/POCfinal/media/bg3.jpg');
+    background-image: url('./POCfinal/media/bg3.jpg');
     background-size: contain;
 }
 
 #BG4 {
-    background-image: url('/POCfinal/media/bg4.jpg');
+    background-image: url('./POCfinal/media/bg4.jpg');
     background-size: contain;
 }
 
 #BG5 {
-    background-image: url('/POCfinal/media/bg5.jpg');
+    background-image: url('./POCfinal/media/bg5.jpg');
     background-size: contain;
 }
 
@@ -68,42 +68,42 @@ body{
 }
 
 #mat1{
-    background-image: url('/POCfinal/media/bois.png');
+    background-image: url('./POCfinal/media/bois.png');
     background-position: center;
 }
 
 #mat2{
-    background-image: url('/POCfinal/media/carbon.png');
+    background-image: url('./POCfinal/media/carbon.png');
     background-position: center;
 }
 
 #mat3{
-    background-image: url('/POCfinal/media/gold.png');
+    background-image: url('./POCfinal/media/gold.png');
     background-position: center;
 }
 
 #mat4{
-    background-image: url('/POCfinal/media/magma.png');
+    background-image: url('./POCfinal/media/magma.png');
     background-position: center;
 }
 
 #mat5{
-    background-image: url('/POCfinal/media/metal.png');
+    background-image: url('./POCfinal/media/metal.png');
     background-position: center;
 }
 
 #mat6{
-    background-image: url('/POCfinal/media/pierre.png');
+    background-image: url('./POCfinal/media/pierre.png');
     background-position: center;
 }
 
 #mat7{
-    background-image: url('/POCfinal/media/silver.png');
+    background-image: url('./POCfinal/media/silver.png');
     background-position: center;
 }
 
 #mat8{
-    background-image: url('/POCfinal/media/waterm.png');
+    background-image: url('./POCfinal/media/waterm.png');
     background-position: center;
 }
 
