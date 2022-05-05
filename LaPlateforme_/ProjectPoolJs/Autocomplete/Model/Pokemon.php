@@ -41,6 +41,31 @@ Class Pokemon extends Model
         return $search_result;
     }
 
+    public static function getPokemonsByExactSearch($search)
+    {
+        $sql = "SELECT * FROM pokemons
+        WHERE  id LIKE ?
+            OR nom LIKE ?
+            OR type0 LIKE ?
+            OR type1 LIKE ?
+            OR baseHP LIKE ?
+            OR baseAttack LIKE ?
+            OR baseDefense LIKE ?
+            OR baseSP_Attack LIKE ?
+            OR baseSp_Defense LIKE ?
+            OR baseSpeed LIKE ?";
+
+        $params = array($search."%", $search."%", $search."%", $search."%",
+                        $search."%", $search."%", $search."%", $search."%",
+                        $search."%", $search."%");
+
+        $result = self::selectQuery($sql, $params);
+
+        $search_result=$result->fetchAll(PDO::FETCH_ASSOC);
+        
+        return $search_result;
+    }
+
     public static function getPokemonById($id)
     {
         $params = array($id);

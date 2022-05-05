@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             if (searchBar.value != '')
             {
                 let removeableDiv = document.getElementById('divContent');
+                
                 if(removeableDiv != null)
                 {
                     removeableDiv.remove();
@@ -27,9 +28,30 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 //create a set to add all the infos in
                 let searchSet = new Set();
+                let searchExactSet = new Set();
 
                 //add the div after the form
                 form.after(searchDiv);
+
+                //fill the set with elements that start to the value of the bar
+                for(let i = 0; i<Object.keys(response).length ;i++)
+                {
+                    let data = (response[i]);
+
+                    Object.keys(data).forEach(function(key) {
+
+                        let tempValue = JSON.stringify(data[key]).toLowerCase();
+                        
+                        let tempSearch = searchBar.value.toLowerCase();
+
+                        if( tempValue.startsWith(tempSearch, 1) )
+                        {        
+                            searchExactSet.add(data[key]);
+                        }
+
+                    })
+
+                }
 
                 //fill the set with elements that correspond to the value of the bar
                 for(let i = 0; i<Object.keys(response).length ;i++)
@@ -38,9 +60,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                     Object.keys(data).forEach(function(key) {
 
-                        let tempValue = JSON.stringify(data[key]);
+                        let tempValue = JSON.stringify(data[key]).toLowerCase();
 
-                        if( tempValue.includes(searchBar.value))
+                        if( tempValue.includes(searchBar.value.toLowerCase()))
                         {        
                             searchSet.add(data[key]);
                         }
@@ -48,10 +70,60 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
 
                 //check if the set is filled or not
+                if( searchExactSet.size > 0)
+                {   
+                    let BreakException = "10!";
+                    let count = 0;
+
+                    //je fais un try catch pour limiter la génération à 10
+                    //il n'y a pas de break en Js
+                    try 
+                    {
+                        //for each sur le set de pokemon
+                        searchExactSet.forEach( element => {
+                            count++;
+
+                            let form = document.createElement('FORM');
+                            form.setAttribute('method', 'POST');
+
+                            let inputSearchTxt = document.createElement('INPUT');
+                            inputSearchTxt.setAttribute('name','searchText');
+                            inputSearchTxt.setAttribute('type', 'hidden');
+                            inputSearchTxt.setAttribute('value', element);
+                            form.appendChild(inputSearchTxt);
+                            
+                            let submitSearch = document.createElement('INPUT');
+                            submitSearch.setAttribute('name', 'search');
+                            submitSearch.setAttribute('type', 'submit');
+                            submitSearch.setAttribute('value', element);
+                            submitSearch.setAttribute('class', 'btn btn-link text-decoration-none text-dark');
+                            form.appendChild(submitSearch);
+
+                            searchDiv.appendChild(form);
+
+                            if (count == 5) 
+                            { 
+                                throw BreakException; 
+                            }
+
+                        })
+                    } 
+                    catch (e) 
+                    {
+                        if (e !== BreakException) throw e;
+                    }   
+                                 
+                }
+
+                let hr = document.createElement('HR');
+                searchDiv.appendChild(hr);
+
+                //check if the set is filled or not
                 if( searchSet.size > 0)
                 {   
                     let BreakException = "10!";
                     let count = 0;
+
                     //je fais un try catch pour limiter la génération à 10
                     //il n'y a pas de break en Js
                     try 
@@ -60,12 +132,25 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         searchSet.forEach( element => {
                             count++;
 
-                            let p = document.createElement('P');
-                            p.textContent = element;
-                            searchDiv.appendChild(p);
+                            let form = document.createElement('FORM');
+                            form.setAttribute('method', 'POST');
 
+                            let inputSearchTxt = document.createElement('INPUT');
+                            inputSearchTxt.setAttribute('name','searchText');
+                            inputSearchTxt.setAttribute('type', 'hidden');
+                            inputSearchTxt.setAttribute('value', element);
+                            form.appendChild(inputSearchTxt);
                             
-                            if (count == 10) throw BreakException;
+                            let submitSearch = document.createElement('INPUT');
+                            submitSearch.setAttribute('name', 'search');
+                            submitSearch.setAttribute('type', 'submit');
+                            submitSearch.setAttribute('value', element);
+                            submitSearch.setAttribute('class', 'btn btn-link text-decoration-none text-dark');
+                            form.appendChild(submitSearch);
+
+                            searchDiv.appendChild(form);
+
+                            if (count == 5) throw BreakException;
 
                         })
                     } 

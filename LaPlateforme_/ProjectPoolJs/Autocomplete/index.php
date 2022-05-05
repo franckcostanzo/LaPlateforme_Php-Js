@@ -14,13 +14,13 @@
 <body class="d-flex flex-column justify-content-center align-items-center w-100">
 
 <p class="text-center display-1">
-    <span class="text-primary">F</span>
-    <span class="text-danger">R</span>
+    <span class="text-primary fw-bold">F</span>
+    <span class="text-danger fw-bold">R</span>
     <span class="text-warning">O</span>
-    <span class="text-primary">O</span>
-    <span class="text-success">K</span>
+    <span class="text-primary fw-bold">O</span>
+    <span class="text-success fw-bold">K</span>
     <span class="text-danger">L</span>
-    <span class="text-warning">E</span>
+    <span class="text-warning fw-bold">E</span>
 </p>
 
 <form method="POST" class="w-50 d-flex justify-content-center">    
